@@ -11,10 +11,10 @@
   <meta charset="utf-8">
 
   
-  <title>Hello World</title>
+  <title>Javascript Function Decorators</title>
 
   
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in ">
+  <meta name="description" content="TC39 has an upcoming proposal for decorators, that decorates class methods. That is different from just decorating fucntions, which has been around fo">
   
 
   <meta name="author" content="Kesava Mallela">
@@ -25,16 +25,16 @@
 
   <meta property="og:site_name" content="Strong Opinions, Weakly held" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Hello World" />
+  <meta property="og:title" content="Javascript Function Decorators" />
   
-  <meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in ">
+  <meta property="og:description" content="TC39 has an upcoming proposal for decorators, that decorates class methods. That is different from just decorating fucntions, which has been around fo">
   
   <meta property="og:url" content="http://kesava.github.io/blog/2021/02/22/hello-world/index.html" />
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Hello World">
+  <meta name="twitter:title" content="Javascript Function Decorators">
   
-  <meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in ">
+  <meta name="twitter:description" content="TC39 has an upcoming proposal for decorators, that decorates class methods. That is different from just decorating fucntions, which has been around fo">
   
 
   
@@ -133,21 +133,39 @@
 </div>
 
         <div class="trans">
-            <h4>Hello World</h4>
+            <h4>Javascript Function Decorators</h4>
 
-  <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+  <p>TC39 has an upcoming <a target="_blank" rel="noopener" href="https://github.com/tc39/proposal-decorators">proposal</a> for decorators, that decorates class methods. That is different from just decorating fucntions, which has been around forever. </p>
+<p>Let’s explore some useful function decorators in this post.</p>
+<h3 id="unary"><a href="#unary" class="headerlink" title="unary"></a><code>unary</code></h3><p>Unary is a function decorator that makes it possible to invoke the function with only the first argument. This is useful when you need the function to be passed a method argument, where multiple arguments are passed to the argument function.</p>
+<p>Here is an implementation -</p>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> <span class="token function-variable function">unary</span> <span class="token operator">=</span> <span class="token parameter">fn</span> <span class="token operator">=></span> <span class="token punctuation">(</span>fn<span class="token punctuation">.</span>length <span class="token operator">===</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token function-variable function">fn</span> <span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">firstParam</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">return</span> <span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> firstParam<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>Methods like <code>map</code>, <code>filter</code>, <code>forEach</code> all pass multiple arguments to the method argument. </p>
+<p>So a call like <code>[&#39;first&#39;, &#39;second&#39;].forEach(console.log)</code> is essentially equivalent to <code>[&#39;first&#39;, &#39;second&#39;].forEach((ele, ind, list) =&gt; console.log(ele, ind, list))</code>.</p>
+<p>You can decorate <code>console.log</code> function with <code>unary</code>, so <code>console.log</code> will ignore the second and third arguments.</p>
+<pre class="line-numbers language-none"><code class="language-none">[&#39;first&#39;, &#39;second&#39;].forEach(unary(console.log));
+&#x2F;&#x2F; &#39;first&#39;
+&#x2F;&#x2F; &#39;second&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="once"><a href="#once" class="headerlink" title="once"></a><code>once</code></h3><p>Once decorates the function by making sure it is executed only once, in spite of getting invoked multiple times.</p>
+<p>Here is a implementation -</p>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> <span class="token function-variable function">once</span> <span class="token operator">=</span> <span class="token parameter">fn</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">let</span> done <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> <span class="token function-variable function">noop</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token operator">...</span>args</span><span class="token punctuation">)</span> <span class="token operator">=></span> done <span class="token operator">?</span> <span class="token function">noop</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token punctuation">(</span>done <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo generate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>Now, when you decorate a function with <code>once</code>, any further invocation after the first invocation of the decorated function will result in a no-operation call.</p>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> <span class="token function-variable function">initMethod</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Initializing the process'</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> init <span class="token operator">=</span> <span class="token function">once</span><span class="token punctuation">(</span>initMethod<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// Initializing the process</span>
+<span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// no-op call, no output</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo deploy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 
   <p> — Feb 22, 2021</p>
   
@@ -162,7 +180,7 @@
     var disqus_config = function() {
       this.page.url = 'http://kesava.github.io/blog/2021/02/22/hello-world/index.html';
       this.page.identifier = '2021/02/22/hello-world/index.html';
-      this.page.title = 'Hello World';
+      this.page.title = 'Javascript Function Decorators';
     };
 
     var is_disqus_loaded = false;
