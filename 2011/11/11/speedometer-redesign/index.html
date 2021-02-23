@@ -11,32 +11,36 @@
   <meta charset="utf-8">
 
   
-  <title>All Posts - Kesava Mallela</title>
+  <title>Speedometer Redesign</title>
 
   
-  <meta name="description" content="">
+  <meta name="description" content="In this great post, Christian Annyas chronicles evolution of speedometer design in Chevrolets over the past few decades. The basic conceptual design h">
   
 
   <meta name="author" content="Kesava Mallela">
 
   
+  <meta property="og:image" content="http://kesava.github.io/blog/2011/11/11/speedometer-redesign/undefined">
+  
 
   <meta property="og:site_name" content="Strong Opinions, Weakly held" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="All Posts - Kesava Mallela" />
+  <meta property="og:title" content="Speedometer Redesign" />
   
-  <meta property="og:description" content="">
+  <meta property="og:description" content="In this great post, Christian Annyas chronicles evolution of speedometer design in Chevrolets over the past few decades. The basic conceptual design h">
   
-  <meta property="og:url" content="http://kesava.github.io/blog/archives/index.html" />
+  <meta property="og:url" content="http://kesava.github.io/blog/2011/11/11/speedometer-redesign/index.html" />
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="All Posts - Kesava Mallela">
+  <meta name="twitter:title" content="Speedometer Redesign">
   
-  <meta name="twitter:description" content="">
+  <meta name="twitter:description" content="In this great post, Christian Annyas chronicles evolution of speedometer design in Chevrolets over the past few decades. The basic conceptual design h">
   
 
   
-  <meta name="twitter:url" content="http://kesava.github.io/blog/archives/index.html" />
+  <meta name="twitter:image" content="http://kesava.github.io/blog/2011/11/11/speedometer-redesign/undefined">
+  
+  <meta name="twitter:url" content="http://kesava.github.io/blog/2011/11/11/speedometer-redesign/index.html" />
 
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -125,64 +129,47 @@
 </div>
 
         <div class="trans">
-          
-<h5>All Posts</h5>
+            <h4>Speedometer Redesign</h4>
 
+  <p><img src="/images/silverado.jpg" alt="Chevrolet Speedometer"><br>In this <a target="_blank" rel="noopener" href="http://annyas.com/chevrolet-speedometer-design/">great post</a>, Christian Annyas chronicles evolution of speedometer design in Chevrolets over the past few decades. The basic conceptual design hasn’t changed much over the years. Some of them have got it really wrong like the horizontal unreadable ones from 1966 and 1970. But otherwise, they pretty much remain the same with different arc lengths and fonts, with one exception. The 1985 Silverado speedometer has speeds that end in 5s, while the rest of the speedometers are in multiples of 10.</p>
+<p>My first reaction was the Silverado speedometer has the best design because most speed limits posted in the United States end in 5 (e.g. 25 in school zones and residential blocks, 35/45 on main/arterial streets, 55/65 on freeways). So this speedometer makes it so much easy for its drivers to make sure they are with in the speed limit. With multiples of 10 you always have to do an extra little computation step of reading between the markings on the dial.</p>
+<p>That prompts a bigger question, Why do most car makers make speedometers that have speeds posted in multiples of 10? Is it because we use decimal system and we are so used to multiples of 10? There has to be a better reason than that. My guess is that – most drivers tend to add 5mph to the posted speed limit and make that their self-enforced speed limit (e..g if the posted speed limit is 55, people tend to drive at upper limit of 59/60). A speedometer with multiples of 10 makes it easy for the drivers to keep track of this plus+5 speed, where as speedometer with 5s has the risk being a little over plus+5 because of possible parallax error while reading between the markings.</p>
+<p>So I guess the design choices boil down to what drivers ought to do (drive at speed limit) vs what drivers tend to do (drive at a revised speed limit of plus+5). The latter choice needs to win because that may prevent drivers from getting more speeding tickets and making up self-enforced speed limits that are more far off from the posted limits.</p>
 
-    <article>
-      <div class="row">
+  <p><a class="classtest-link" href="/blog/tags/design/" rel="tag">design</a> — Nov 11, 2011</p>
+  
+  <hr>
+<section id="comments" class="mt-2 mb-3">
 
-        <div class="three columns left lit">
-          <p class="bottom">Feb 22, 2021</p>
-        </div>
-        <div class="nine columns left mb-3">
-          <a href="/blog/2021/02/22/javascript-function-decorators/" class="">
-            
-              Javascript Function Decorators
-            
-          </a>
-        </div>
-      </div>
-    </article>
+  <div id="disqus_thread">
+    <a href="#" class="button button-primary" onclick="loadDisqus();return false;">View / Make Comments</a>
+  </div>
 
-    <article>
-      <div class="row">
+  <script>
+    var disqus_config = function() {
+      this.page.url = 'http://kesava.github.io/blog/2011/11/11/speedometer-redesign/index.html';
+      this.page.identifier = '2011/11/11/speedometer-redesign/index.html';
+      this.page.title = 'Speedometer Redesign';
+    };
 
-        <div class="three columns left lit">
-          <p class="bottom">Apr 24, 2012</p>
-        </div>
-        <div class="nine columns left mb-3">
-          <a href="/blog/2012/04/24/rspec-howto/" class="">
-            
-              A tutorial on using RSpec and TDD
-            
-          </a>
-        </div>
-      </div>
-    </article>
+    var is_disqus_loaded = false;
 
-    <article>
-      <div class="row">
+    function loadDisqus() {
+      if (!is_disqus_loaded) {
+        is_disqus_loaded = true;
 
-        <div class="three columns left lit">
-          <p class="bottom">Nov 11, 2011</p>
-        </div>
-        <div class="nine columns left mb-3">
-          <a href="/blog/2011/11/11/speedometer-redesign/" class="">
-            
-              Speedometer Redesign
-            
-          </a>
-        </div>
-      </div>
-    </article>
+        var d = document,
+          s = d.createElement('script');
+        s.src = 'https://kesava.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+    }
 
-<div class="pagination-bar">
-  <ul class="pagination">
-    
-    
-  </ul>
-</div>
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
 
 
           <div class="row mt-2">
