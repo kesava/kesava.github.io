@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Minima -->
+  <!-- Hexo theme created by @adisaktijrs -->
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+
+  
+  <title>A tutorial on using RSpec and TDD</title>
+
+  
+  <meta name="description" content="This is an attempt to put together a comprehensive rspec tutorial including guard/spork/growl and later factories, associations, devise, cancan and so">
+  
+
+  <meta name="author" content="Kesava Mallela">
+
+  
+  <meta property="og:image" content="http://kesava.github.io/blog/2012/04/24/rspec-howto/undefined">
+  
+
+  <meta property="og:site_name" content="Strong Opinions, Weakly held" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="A tutorial on using RSpec and TDD" />
+  
+  <meta property="og:description" content="This is an attempt to put together a comprehensive rspec tutorial including guard/spork/growl and later factories, associations, devise, cancan and so">
+  
+  <meta property="og:url" content="http://kesava.github.io/blog/2012/04/24/rspec-howto/index.html" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="A tutorial on using RSpec and TDD">
+  
+  <meta name="twitter:description" content="This is an attempt to put together a comprehensive rspec tutorial including guard/spork/growl and later factories, associations, devise, cancan and so">
+  
+
+  
+  <meta name="twitter:image" content="http://kesava.github.io/blog/2012/04/24/rspec-howto/undefined">
+  
+  <meta name="twitter:url" content="http://kesava.github.io/blog/2012/04/24/rspec-howto/index.html" />
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<link rel="stylesheet" href="/blog/css/dark.css">
+
+  
+<link rel="stylesheet" href="/blog/css/normalize.css">
+
+  
+<link rel="stylesheet" href="/blog/css/skeleton.css">
+
+  
+<link rel="stylesheet" href="/blog/css/custom.css">
+
+  
+<link rel="stylesheet" href="/blog/css/prism-dark.css">
+
+  
+<link rel="stylesheet" href="/blog/css/prism-line-numbers.css">
+
+
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="eight columns  offset-by-two">
+
+        <div class="row">
+  <div class="two columns" style="max-width: 50px">
+    <h4 class="mt-2 mode">
+      <div onclick=setDarkMode(true) id="darkBtn">🕯</div>
+      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>💡</div>
+      <script >
+        if (localStorage.getItem('preferredTheme') == 'dark') {
+          setDarkMode(true)
+        }
+        function setDarkMode(isDark) {
+          var darkBtn = document.getElementById('darkBtn')
+          var lightBtn = document.getElementById('lightBtn')
+          if (isDark) {
+            lightBtn.style.display = "block"
+            darkBtn.style.display = "none"
+            localStorage.setItem('preferredTheme', 'dark');
+          } else {
+            lightBtn.style.display = "none"
+            darkBtn.style.display = "block"
+            localStorage.removeItem('preferredTheme');
+          }
+          document.body.classList.toggle("darkmode");
+        }
+      </script>
+    </h4>
+  </div>
+
+  <div class="nine columns ml-1">
+    <h4 class="mt-2">
+      Strong Opinions, Weakly Held
+    </h4>
+  </div>
+
+  <div class="twelve columns">
+    <div class="row">
+      <div class="nine columns left">
+        <a href="/blog/" class="link">Home</a>
+        
+      </div>
+    </div>
+    <hr style="margin-bottom: 2.6rem">
+  </div>
+</div>
+
+        <div class="trans">
+            <h4>A tutorial on using RSpec and TDD</h4>
+
+  <p>This is an attempt to put together a comprehensive rspec tutorial including guard/spork/growl and later factories, associations, devise, cancan and some common testing patterns.</p>
+<p>RSpec is a great tool in the test/behavior driven design process of writing human readable specifications that direct and validate the development of our application. We put the specifications (or specs) in a spec folder; we have one spec file for each class. We also have a spec_helper.rb that specifies basic test setup environment.</p>
+<h2 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h2><p>In order to facilitate test driven development, we want to continuously monitor our app folder and run tests in the background as we continue to work on development of the application. We will use rspec along with Guard and spork towards this end. Guard is a command line tool to easily handle events on file system modifications. Spork is a server for testing frameworks that forks before each run to ensure a clean testing state. It’s pretty easy to install Rspec, guard and spork. On the command line and run this:</p>
+<p><code>gem install rspec</code></p>
+<p>or include it as part of Gemfile</p>
+<p>Gemfile contents to run rspec/guard/spork/growl</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">group <span class="token symbol">:development</span> <span class="token keyword">do</span>
+ gem <span class="token string">'rspec-rails'</span>
+ gem <span class="token string">'guard'</span>
+ gem <span class="token string">'guard-rspec'</span>
+<span class="token keyword">end</span>
+
+group <span class="token symbol">:test</span> <span class="token keyword">do</span>
+ gem <span class="token string">'rspec'</span>
+ gem <span class="token string">'growl'</span>
+ gem <span class="token string">'rb-fsevent'</span>
+ gem <span class="token string">'spork-rails'</span>
+ gem <span class="token string">'guard-spork'</span>
+<span class="token keyword">end</span>
+<span class="token keyword">and</span> <span class="token keyword">do</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>and do </p>
+<p><code>bundle install</code></p>
+<p>Now download Mac OSX Growl here. Double click on the downloaded dmg file and install Growl. Relaunch the dmg file and click on the Extras folder, then click on growlnotify, and install it using the pkg file. Now, assuming that you have checked out the code and Rspec tests in place (in spec folder), type this in the terminal to initiate a Guardfile with the Guard for Rspec:</p>
+<p><code>bundle exec guard init rspec</code></p>
+<p>If you are running it for the first time, this creates a Guardfile, but since the codebase already consists of a Guardfile, it should just use it. Guardfile specifies what directories should be monitored for any modifications. Spec_helper specifies a few key things including -</p>
+<ul>
+<li>Required ruby classes to run tests, like rubygems, spork, factory_girl, webrat etc.</li>
+<li>What should the initial test load environment should look like, i.e. <code>spork.prefork</code></li>
+<li>What should spork be loading for each fork i.e. <code>spork.each_run</code></li>
+</ul>
+<h2 id="A-sample-project"><a href="#A-sample-project" class="headerlink" title="A sample project"></a>A sample project</h2><p>Now, let’s set up a sample project. We’re going to create two classes: Book and Library. Our Book objects will just store a title and author. Our Library object will store a list of books and allow us to fetch them by author.</p>
+<h3 id="The-Book-class"><a href="#The-Book-class" class="headerlink" title="The Book class"></a>The Book class</h3><p>Book probably has a model, controller and a view in the app folder. Similarly we would have a models, controllers and views sub folders in our spec folder. Further, we would have book_spec.rb in models folder, books_controller_spec.rb in controllers sub folder and corresponding spec files in views.</p>
+<p>Let’s start with tests for a Book model class.</p>
+<p>Basic Book Class</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token keyword">require</span> <span class="token string">'spec_helper'</span>
+  describe <span class="token constant">Book</span> <span class="token keyword">do</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>This is how we start - with a describe block.</p>
+<p>Our parameter to describe explains what we’re testing: this could be a string, but in our case we’re using the class name. Everything related to Book’s model tests would go into this block. There is usually a before block that specifies initialization that needs to happen before every test. It reads something like this -</p>
+<p>a before block</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">before <span class="token symbol">:each</span> <span class="token keyword">do</span>
+    <span class="token variable">@book</span> <span class="token operator">=</span> <span class="token constant">Book</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span><span class="token symbol">:title</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"Lorem Ipsum"</span><span class="token punctuation">,</span> <span class="token symbol">:author</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"John Doe"</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>Notice how we’re making it an instance variable, by prepending the variable name with @. We need to do this so that our variable will be accessible from within our tests. Otherwise, we’ll just get a local variable that’s only good inside the before block.</p>
+<p>Now, lets write our first test -</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">describe <span class="token string">"#new"</span> <span class="token keyword">do</span>
+  it <span class="token string">"takes three parameters and returns a Book object"</span> <span class="token keyword">do</span> <span class="token variable">@book</span><span class="token punctuation">.</span>should be_an_instance_of <span class="token constant">Book</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>We’re using a nested describe block here to say we’re describing the actions of a specific method. You’ll notice we’ve used the string #new; it’s a convention in Ruby and often a best practice in rspec as it leads to better documentation when you run the tests.</p>
+<p>Here, our test simply confirms that we’re indeed made a Book object. Notice the grammar we use here: object.should do_something. Most tests take this form. You have an object and you start by calling should or should_not on the object. Then, you pass to that object the call to another function. In this case that’s be_an_instance_of.</p>
+<p>Since you have guard/spork/growl running in the background, growl should report that the test should fail. In TDD, you want to write just enough code to fix the test. So in this case, you can create book.rb under app/models which should create an instance of Book class.</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token keyword">class</span> <span class="token class-name">Book</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>Growl should now pass the test as we can now create hollow Book objects. We should add more tests about title and author.</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">describe <span class="token string">"#title"</span> <span class="token keyword">do</span>
+  it <span class="token string">"returns the correct title"</span> <span class="token keyword">do</span>
+      <span class="token variable">@book</span><span class="token punctuation">.</span>title<span class="token punctuation">.</span>should eql <span class="token string">"Title"</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span>
+describe <span class="token string">"#author"</span> <span class="token keyword">do</span>
+  it <span class="token string">"returns the correct author"</span> <span class="token keyword">do</span>
+      <span class="token variable">@book</span><span class="token punctuation">.</span>author<span class="token punctuation">.</span>should eql <span class="token string">"Author"</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>The tests should fail again as the Book class doesn’t have title and author attributes. You should go back to Book.rb and create a migration with author and title attributes and once you have done that your test should pass.</p>
+<p>So that’s the pretty much the core of TDD. Write a test (or few related tests), watch it fail, make it pass, refactor and repeat.</p>
+<p>Let’s spec out a little bit of Library class as well before we move onto Controller tests.</p>
+<h3 id="The-Library-Class"><a href="#The-Library-Class" class="headerlink" title="The Library Class"></a>The Library Class</h3><p>Lets say we have just one library and our library has many books, in which case our library and books have a has_many relationship. Let’s spec out the library test -</p>
+<p>A basic Library spec</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token keyword">require</span> ‘spec_helper'
+describe ‘<span class="token constant">Library</span> object' <span class="token keyword">do</span>
+    before <span class="token symbol">:each</span> <span class="token keyword">do</span>
+        <span class="token variable">@library</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token variable">@book1</span> <span class="token operator">=</span> <span class="token constant">Book</span><span class="token punctuation">.</span>create<span class="token punctuation">(</span><span class="token string">"Javascript"</span><span class="token punctuation">,</span> <span class="token string">"Douglas Crockford"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+           <span class="token variable">@book2</span> <span class="token operator">=</span> <span class="token constant">Book</span><span class="token punctuation">.</span>create<span class="token punctuation">(</span><span class="token string">"Rails Way"</span><span class="token punctuation">,</span> <span class="token string">"Obie Fernandez"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+           <span class="token variable">@book3</span> <span class="token operator">=</span> <span class="token constant">Book</span><span class="token punctuation">.</span>create<span class="token punctuation">(</span><span class="token string">"Merb Way"</span><span class="token punctuation">,</span> <span class="token string">"Obie Fernandez"</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+    <span class="token keyword">end</span>
+
+  context <span class="token string">"#by_author"</span> <span class="token keyword">do</span>
+        it <span class="token string">"returns all books by a author"</span> <span class="token keyword">do</span>
+          <span class="token variable">@library</span><span class="token punctuation">.</span>by_author<span class="token punctuation">(</span><span class="token string">"Obie Fernandez"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>length<span class="token punctuation">.</span>should <span class="token operator">==</span> <span class="token number">2</span>
+      <span class="token keyword">end</span>
+  <span class="token keyword">end</span>
+  
+  context <span class="token string">"#add_book"</span> <span class="token keyword">do</span>
+      it <span class="token string">"accepts new books"</span> <span class="token keyword">do</span>
+          <span class="token variable">@library</span><span class="token punctuation">.</span>add_book<span class="token punctuation">(</span><span class="token constant">Book</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span><span class="token string">"Javascript Patterns"</span><span class="token punctuation">,</span> <span class="token string">"Jane Eyre"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+          <span class="token variable">@library</span><span class="token punctuation">.</span>length<span class="token punctuation">.</span>should <span class="token operator">==</span> <span class="token number">4</span>
+      <span class="token keyword">end</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>You should see all the tests fail and you can repeat the TDD process we discussed previously. But before we move any further, we want to learn about factories.</p>
+<h3 id="Factories"><a href="#Factories" class="headerlink" title="Factories"></a>Factories</h3><p>Factories are replacement for fixtures with pretty straightforward syntax with support for multiple build strategies and class inheritance. This provides an excellent overview of how to get started with factories.</p>
+<p>We can define our factories here as follows -</p>
+<p>Factories for Library and Book</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token constant">Factory</span><span class="token punctuation">.</span>define <span class="token symbol">:library</span> <span class="token keyword">do</span> <span class="token operator">|</span>library<span class="token operator">|</span>
+  library<span class="token punctuation">.</span>name                <span class="token string">"City Library"</span>
+    library<span class="token punctuation">.</span>location        <span class="token string">"Springfield"</span>
+<span class="token keyword">end</span>
+
+<span class="token constant">Factory</span><span class="token punctuation">.</span>define <span class="token symbol">:book</span> <span class="token keyword">do</span> <span class="token operator">|</span>book<span class="token operator">|</span>
+    book<span class="token punctuation">.</span>title                 <span class="token string">"Sample Title"</span>
+    book<span class="token punctuation">.</span>author                <span class="token string">"John Doe"</span>
+    book<span class="token punctuation">.</span>association         <span class="token symbol">:library</span> <span class="token comment">#belongs_to library relationship</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>From here onwards, you dont have to write down verbose Book.new every time you want a new Book object. You want to use factories to write something like</p>
+<p>Factories for Library and Book</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token variable">@book</span> <span class="token operator">=</span> <span class="token constant">Factory</span><span class="token punctuation">.</span>create<span class="token punctuation">(</span><span class="token symbol">:book</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>If you want to book attributes hash with just title but no author, you can do something like</p>
+<p>merge attributes</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">attrs <span class="token operator">=</span> <span class="token constant">Factory</span><span class="token punctuation">.</span>build_attributes_for<span class="token punctuation">(</span><span class="token symbol">:book</span><span class="token punctuation">)</span><span class="token punctuation">.</span>merge<span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token symbol">:author</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">''</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>You can use sequences, fakers etc to model more realistic looking fake objects. Refer to sequence and faker documentation for how-to.</p>
+<h3 id="Books-Controller"><a href="#Books-Controller" class="headerlink" title="Books Controller"></a>Books Controller</h3><p>You want to make sure most of your Book related tests go into the model spec code, because thats where you get your most bang for buck. Controller specs usually test for basic http verbs/actions. If your controllers do any thing more than that, it probably needs to be moved to models to keep in line with ‘fat models and skinny controller’ paradigm.</p>
+<p>Here’s how books_controller_spec.rb could look like -</p>
+<p>books_controller_spec.rb</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token keyword">require</span> <span class="token string">'spec_helper'</span>
+
+describe <span class="token constant">UsersController</span> <span class="token keyword">do</span>
+  context ‘<span class="token comment">#index' do</span>
+        it <span class="token string">"has the correct template"</span> <span class="token keyword">do</span>
+            get <span class="token symbol">:index</span>
+            response<span class="token punctuation">.</span>should be_success
+            response<span class="token punctuation">.</span>should render_template<span class="token punctuation">(</span><span class="token symbol">:index</span><span class="token punctuation">)</span>
+        <span class="token keyword">end</span>
+
+        it <span class="token string">"gets list of all books"</span> <span class="token keyword">do</span>
+            <span class="token variable">@book1</span> <span class="token operator">=</span> <span class="token constant">Factory</span><span class="token punctuation">.</span>create<span class="token punctuation">(</span><span class="token symbol">:book</span><span class="token punctuation">)</span>
+            <span class="token variable">@book2</span> <span class="token operator">=</span> <span class="token constant">Factory</span><span class="token punctuation">.</span>create<span class="token punctuation">(</span><span class="token symbol">:book</span><span class="token punctuation">)</span>
+            <span class="token variable">@book3</span> <span class="token operator">=</span> <span class="token constant">Factory</span><span class="token punctuation">.</span>create<span class="token punctuation">(</span><span class="token symbol">:book</span><span class="token punctuation">)</span>
+
+          get <span class="token symbol">:index</span>
+            assigns<span class="token punctuation">(</span><span class="token symbol">:books</span><span class="token punctuation">)</span><span class="token punctuation">.</span>length<span class="token punctuation">.</span>should <span class="token operator">==</span> <span class="token number">3</span>
+        <span class="token keyword">end</span>
+    <span class="token keyword">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Controller specs come with three variables <code>@response</code>, <code>@request</code> and <code>@somethingelse</code>. HTTP verb actions can be written as follows -</p>
+<p>Common HTTP actions in controller testing</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">get <span class="token symbol">:index</span>
+get <span class="token symbol">:show</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token symbol">:id</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token variable">@book</span><span class="token punctuation">.</span>id<span class="token punctuation">&#125;</span>
+post <span class="token symbol">:create</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token symbol">:title</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"Sample"</span><span class="token punctuation">,</span> <span class="token symbol">:author</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">"John Doe"</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>After the request is made, the response variable gets assigned the http response. You could check the status or read the body or do many other response related actions.</p>
+<h3 id="Devise-tests"><a href="#Devise-tests" class="headerlink" title="Devise tests"></a>Devise tests</h3><p>Lets say you need a membership to access the library and you have decided to use devise for authentication. Your controllers now restrict access to models unless you are an authorized user. When you add devise authentication to your application_controller, the controller tests would simply redirect to a login page instead of behaving as expected.</p>
+<p>Devise specifies how to test controllers and views here.</p>
+<p>We could do define the required login method as a macro so that we can reuse it as part of our controller specs.</p>
+<p>Login Macros for Devise</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token keyword">module</span> <span class="token constant">ControllerMacros</span>
+ <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">login_user</span></span>
+   before<span class="token punctuation">(</span><span class="token symbol">:each</span><span class="token punctuation">)</span> <span class="token keyword">do</span>
+     <span class="token variable">@request</span><span class="token punctuation">.</span>env<span class="token punctuation">[</span><span class="token string">"devise.mapping"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token constant">Devise</span><span class="token punctuation">.</span>mappings<span class="token punctuation">[</span><span class="token symbol">:user</span><span class="token punctuation">]</span>
+     <span class="token variable">@user</span> <span class="token operator">=</span> <span class="token constant">Factory</span><span class="token punctuation">.</span>create<span class="token punctuation">(</span><span class="token symbol">:user</span><span class="token punctuation">)</span>
+     sign_in <span class="token variable">@user</span>
+   <span class="token keyword">end</span>
+ <span class="token keyword">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>We now need to extend the above macro as part of <code>spec_helper</code></p>
+<p>rspec config for login macros</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token constant">RSpec</span><span class="token punctuation">.</span>configure <span class="token keyword">do</span> <span class="token operator">|</span>config<span class="token operator">|</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+ config<span class="token punctuation">.</span><span class="token keyword">include</span> <span class="token constant">Devise</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">TestHelpers</span><span class="token punctuation">,</span> <span class="token symbol">:type</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token symbol">:controller</span>
+ config<span class="token punctuation">.</span><span class="token keyword">extend</span> <span class="token constant">ControllerMacros</span><span class="token punctuation">,</span> <span class="token symbol">:type</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token symbol">:controller</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>The controller tests should now be able to login as a valid user and the tests should behave as expected.</p>
+<h3 id="CanCan-tests"><a href="#CanCan-tests" class="headerlink" title="CanCan tests"></a>CanCan tests</h3><p>Now lets say, you have two different user roles - librarian and a member. You could use STI to define the roles and CanCan to define the abilities of each role. CanCan requires you to define abilities for the roles in ability.rb.</p>
+<p>ability.rb is the only place where all the role logic is defined. All the controllers now do is verify against the rules specified in ability.rb. So, the best testing strategy seems to be test the regular controllers as say :admin role and specify a whole different set of tests for ability.rb.</p>
+<p>Using factories to define librarian and user roles -</p>
+<p>Factories for Librarian and Member user roles</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token constant">Factory</span><span class="token punctuation">.</span>define <span class="token symbol">:user</span> <span class="token keyword">do</span> <span class="token operator">|</span>user<span class="token operator">|</span>
+    user<span class="token punctuation">.</span>first_name              <span class="token string">"John"</span>
+    user<span class="token punctuation">.</span>last_name               <span class="token string">"Doe"</span>
+    user<span class="token punctuation">.</span>email                   <span class="token string">"test@example.com"</span>
+    user<span class="token punctuation">.</span>password                <span class="token string">"pass123"</span>
+    user<span class="token punctuation">.</span>password_confirmation   <span class="token string">"pass123"</span>
+<span class="token keyword">end</span>
+
+<span class="token constant">Factory</span><span class="token punctuation">.</span>define <span class="token symbol">:librarian</span><span class="token punctuation">,</span> <span class="token symbol">:parent</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token symbol">:user</span> <span class="token keyword">do</span> <span class="token operator">|</span>user<span class="token operator">|</span>
+    user<span class="token punctuation">.</span>type                    <span class="token string">"Librarian"</span>
+<span class="token keyword">end</span>
+
+<span class="token constant">Factory</span><span class="token punctuation">.</span>define <span class="token symbol">:member</span><span class="token punctuation">,</span> <span class="token symbol">:parent</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token symbol">:user</span> <span class="token keyword">do</span> <span class="token operator">|</span>user<span class="token operator">|</span>
+    user<span class="token punctuation">.</span>type                    <span class="token string">"Member"</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>The devise macro can now be rewritten as</p>
+<p>Login macro to login as a librarian</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token keyword">module</span> <span class="token constant">ControllerMacros</span>
+ <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">login_librarian</span></span>
+   before<span class="token punctuation">(</span><span class="token symbol">:each</span><span class="token punctuation">)</span> <span class="token keyword">do</span>
+     <span class="token variable">@request</span><span class="token punctuation">.</span>env<span class="token punctuation">[</span><span class="token string">"devise.mapping"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token constant">Devise</span><span class="token punctuation">.</span>mappings<span class="token punctuation">[</span><span class="token symbol">:user</span><span class="token punctuation">]</span>
+     <span class="token variable">@lib</span> <span class="token operator">=</span> <span class="token constant">Factory</span><span class="token punctuation">.</span>create<span class="token punctuation">(</span><span class="token symbol">:librarian</span><span class="token punctuation">)</span>
+     sign_in <span class="token variable">@lib</span>
+   <span class="token keyword">end</span>
+ <span class="token keyword">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Controllers can now include login_librarian as part of their before block so that tests will have valid session to test with.</p>
+<h3 id="Ability-tests"><a href="#Ability-tests" class="headerlink" title="Ability tests"></a>Ability tests</h3><p>You want to verify whether you have really specified the role-rules you think you did, so its important test the rules specified in ability.rb. It is also important to keep in mind that the tests are not against CanCan, but they should be against the rules specified in ability.rb. The tests could look something like this -</p>
+<p>Testing against ability.rb</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby"><span class="token keyword">require</span> <span class="token string">"cancan/matchers"</span>
+
+describe <span class="token constant">Ability</span> <span class="token keyword">do</span>
+  before<span class="token punctuation">(</span><span class="token symbol">:each</span><span class="token punctuation">)</span> <span class="token keyword">do</span>
+  <span class="token keyword">end</span>
+  <span class="token punctuation">[</span><span class="token constant">Library</span><span class="token punctuation">,</span> <span class="token constant">Book</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">each</span> <span class="token keyword">do</span> <span class="token operator">|</span>model<span class="token operator">|</span>
+    it <span class="token string">"should allow any member to read a <span class="token interpolation"><span class="token delimiter tag">#&#123;</span>model<span class="token punctuation">.</span>to_s<span class="token delimiter tag">&#125;</span></span> details but not delete them"</span> <span class="token keyword">do</span>
+      user<span class="token operator">=</span> <span class="token constant">Factory</span><span class="token punctuation">(</span><span class="token symbol">:member</span><span class="token punctuation">)</span>
+      ability <span class="token operator">=</span> <span class="token constant">Ability</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span>
+      ability<span class="token punctuation">.</span>should be_able_to<span class="token punctuation">(</span><span class="token symbol">:show</span><span class="token punctuation">,</span> model<span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">)</span>
+      ability<span class="token punctuation">.</span>should_not be_able_to<span class="token punctuation">(</span><span class="token symbol">:delete</span><span class="token punctuation">,</span> <span class="token constant">Factory</span><span class="token punctuation">(</span>model<span class="token punctuation">.</span>to_s<span class="token punctuation">.</span>underscore<span class="token punctuation">.</span>to_sym<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+  <span class="token keyword">end</span>
+
+  <span class="token punctuation">[</span><span class="token constant">Library</span><span class="token punctuation">,</span> <span class="token constant">Book</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">each</span> <span class="token keyword">do</span> <span class="token operator">|</span>model<span class="token operator">|</span>
+    it <span class="token string">"should allow any librarian user to delete a <span class="token interpolation"><span class="token delimiter tag">#&#123;</span>model<span class="token punctuation">.</span>to_s<span class="token delimiter tag">&#125;</span></span> "</span> <span class="token keyword">do</span>
+      user<span class="token operator">=</span> <span class="token constant">Factory</span><span class="token punctuation">(</span><span class="token symbol">:librarian</span><span class="token punctuation">)</span>
+      ability <span class="token operator">=</span> <span class="token constant">Ability</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span>
+      ability<span class="token punctuation">.</span>should be_able_to<span class="token punctuation">(</span><span class="token symbol">:delete</span><span class="token punctuation">,</span>  <span class="token constant">Factory</span><span class="token punctuation">.</span>build<span class="token punctuation">(</span>model<span class="token punctuation">.</span>to_s<span class="token punctuation">.</span>underscore<span class="token punctuation">.</span>to_sym<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span>
+  <span class="token keyword">end</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="Common-Test-Patterns"><a href="#Common-Test-Patterns" class="headerlink" title="Common Test Patterns"></a>Common Test Patterns</h2><h3 id="Model-patterns"><a href="#Model-patterns" class="headerlink" title="Model patterns"></a>Model patterns</h3><p>Model tests are largely dependent on the specifics of the application. But a few common test patterns can be identified around the following areas.</p>
+<h6 id="Testing-for-validations"><a href="#Testing-for-validations" class="headerlink" title="Testing for validations"></a>Testing for validations</h6><p>testing for validations</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">it <span class="token string">"should have valid name"</span> <span class="token keyword">do</span>
+  <span class="token variable">@group</span> <span class="token operator">=</span> <span class="token constant">Factory</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span><span class="token symbol">:group</span><span class="token punctuation">,</span> <span class="token symbol">:name</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">''</span><span class="token punctuation">)</span> <span class="token comment"># with no name</span>
+  <span class="token variable">@group</span><span class="token punctuation">.</span>should_not be_an_instance_of<span class="token punctuation">(</span><span class="token constant">Group</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span>
+<span class="token comment"># Group.rb</span>
+<span class="token comment"># validates_presence_of :name</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h6 id="Testing-for-a-model-method"><a href="#Testing-for-a-model-method" class="headerlink" title="Testing for a model method"></a>Testing for a model method</h6><p>testing for a model method</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">it <span class="token string">"should have a users method"</span> <span class="token keyword">do</span>
+  <span class="token variable">@group</span> <span class="token operator">=</span> <span class="token constant">Factory</span><span class="token punctuation">.</span>create<span class="token punctuation">(</span><span class="token symbol">:group</span><span class="token punctuation">)</span>
+  <span class="token variable">@group</span><span class="token punctuation">.</span>should respond_to<span class="token punctuation">(</span><span class="token symbol">:users</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Controller-patterns"><a href="#Controller-patterns" class="headerlink" title="Controller patterns"></a>Controller patterns</h3><p>While model tests are specific to functionality of an application, controller tests follow similar patterns no matter what the application is supposed to do. Here are a few common test patterns that are employed in rspec controller testing.</p>
+<h6 id="Testing-for-a-template"><a href="#Testing-for-a-template" class="headerlink" title="Testing for a template"></a>Testing for a template</h6><p>testing for a template</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">it <span class="token string">"should render the correct template"</span> <span class="token keyword">do</span>
+  get <span class="token symbol">:new</span>
+  response<span class="token punctuation">.</span>should render_template<span class="token punctuation">(</span><span class="token symbol">:new</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h6 id="Testing-for-the-value-of-response-variables"><a href="#Testing-for-the-value-of-response-variables" class="headerlink" title="Testing for the value of response variables"></a>Testing for the value of response variables</h6><p>testing for a response variable</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">it <span class="token string">"should return an instance of a group"</span> <span class="token keyword">do</span>
+  get <span class="token symbol">:new</span>
+  assigns<span class="token punctuation">(</span><span class="token symbol">:group</span><span class="token punctuation">)</span><span class="token punctuation">.</span>should be_a_new<span class="token punctuation">(</span><span class="token constant">Group</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h6 id="Testing-for-a-successful-post-action"><a href="#Testing-for-a-successful-post-action" class="headerlink" title="Testing for a successful post action"></a>Testing for a successful post action</h6><p>testing for a successful post action</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">it <span class="token string">"should post"</span> <span class="token keyword">do</span>
+  expect <span class="token punctuation">&#123;</span>
+    post <span class="token symbol">:create</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token symbol">:group</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token constant">Factory</span><span class="token punctuation">.</span>attributes_for<span class="token punctuation">(</span><span class="token symbol">:group</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">.</span>to change<span class="token punctuation">(</span><span class="token constant">Group</span><span class="token punctuation">,</span> <span class="token symbol">:count</span><span class="token punctuation">)</span><span class="token punctuation">.</span>by<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h6 id="Testing-for-a-unsuccessful-post-action"><a href="#Testing-for-a-unsuccessful-post-action" class="headerlink" title="Testing for a unsuccessful post action"></a>Testing for a unsuccessful post action</h6><p>testing for an unsuccessful post action</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">it <span class="token string">"should return back to new page when post fails"</span> <span class="token keyword">do</span>
+  expect <span class="token punctuation">&#123;</span>
+    post <span class="token symbol">:create</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token symbol">:group</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token constant">Factory</span><span class="token punctuation">.</span>attributes_for<span class="token punctuation">(</span><span class="token symbol">:group</span><span class="token punctuation">)</span><span class="token punctuation">.</span>merge<span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token symbol">:name</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">''</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">.</span>to change<span class="token punctuation">(</span><span class="token constant">Group</span><span class="token punctuation">,</span> <span class="token symbol">:count</span><span class="token punctuation">)</span><span class="token punctuation">.</span>by<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+  response<span class="token punctuation">.</span>should render_template<span class="token punctuation">(</span><span class="token symbol">:new</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h6 id="Testing-for-a-delete-action"><a href="#Testing-for-a-delete-action" class="headerlink" title="Testing for a delete action"></a>Testing for a delete action</h6><p>testing for a delete action</p>
+<pre class="line-numbers language-ruby" data-language="ruby"><code class="language-ruby">it <span class="token string">"should delete the group"</span> <span class="token keyword">do</span>
+  <span class="token variable">@group</span> <span class="token operator">=</span> <span class="token constant">Factory</span><span class="token punctuation">.</span>create<span class="token punctuation">(</span><span class="token symbol">:group</span><span class="token punctuation">)</span>
+  expect <span class="token punctuation">&#123;</span>
+    delete <span class="token symbol">:destroy</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token symbol">:id</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token variable">@group</span><span class="token punctuation">.</span>id<span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">.</span>to change<span class="token punctuation">(</span><span class="token constant">Group</span><span class="token punctuation">,</span> <span class="token symbol">:count</span><span class="token punctuation">)</span><span class="token punctuation">.</span>by<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+  <p><a class="classtest-link" href="/blog/tags/rspec/" rel="tag">rspec</a>, <a class="classtest-link" href="/blog/tags/tdd/" rel="tag">tdd</a>, <a class="classtest-link" href="/blog/tags/tutorial/" rel="tag">tutorial</a> — Apr 24, 2012</p>
+  
+  <hr>
+<section id="comments" class="mt-2 mb-3">
+
+  <div id="disqus_thread">
+    <a href="#" class="button button-primary" onclick="loadDisqus();return false;">View / Make Comments</a>
+  </div>
+
+  <script>
+    var disqus_config = function() {
+      this.page.url = 'http://kesava.github.io/blog/2012/04/24/rspec-howto/index.html';
+      this.page.identifier = '2012/04/24/rspec-howto/index.html';
+      this.page.title = 'A tutorial on using RSpec and TDD';
+    };
+
+    var is_disqus_loaded = false;
+
+    function loadDisqus() {
+      if (!is_disqus_loaded) {
+        is_disqus_loaded = true;
+
+        var d = document,
+          s = d.createElement('script');
+        s.src = 'https://kesava.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+    }
+
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+          <div class="row mt-2">
+  <div class="eight columns">
+    <p>Made with
+      <a class="footer-link" href="https://hexo.io/themes/#Minima" target="_blank" style="text-decoration: none;" rel="noreferrer">
+       <svg class="svg-hov" style="width: 15px; fill: #03adfc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+      </a>
+       at <a href="https://www.google.com/search?q=Sunnyvale+CA" target="_blank" rel="noreferrer">Sunnyvale, CA</a>.</p>
+  </div>
+
+  <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
+  <div class="four columns mb-3 posisi">
+    <a href="https://github.com/kesava" target="_blank" class="footer-link" style="text-decoration: none;" rel="noreferrer">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+</svg>
+
+    </a>
+
+    <a class="ml-0 footer-link" href="https://twitter.com/kesava" target="_blank"  style="text-decoration: none; margin-left: 1rem;" rel="noreferrer">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitter" viewBox="0 0 16 16">
+  <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
+</svg>
+
+    </a>
+
+    <a class="ml-0 footer-link" href="https://www.linkedin.com/in/kesava/" target="_blank" class="footer-link" style="text-decoration: none; margin-left: 1rem;" rel="noreferrer">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+  <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
+</svg>
+    </a>
+
+  </div>
+</div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/blog//js/nanobar.min.js"></script>
+  <script>
+    var options = {
+      classname: 'nanobar',
+      id: 'myNanobar'
+    };
+    var nanobar = new Nanobar(options);
+    nanobar.go(30);
+    nanobar.go(76);
+    nanobar.go(100);
+  </script>
+
+</body>
+
+</html>
