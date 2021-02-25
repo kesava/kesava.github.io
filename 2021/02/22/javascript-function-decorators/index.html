@@ -162,14 +162,9 @@
 <span class="token comment">// no-op call, no output</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="throttle"><a href="#throttle" class="headerlink" title="throttle"></a><code>throttle</code></h3><p><code>throttle</code> decorates the function to wait till the given duration, before any subsequent invocations. The following is a simple diagram to explain what goes in with throttling. The first action is executed, but all subsequent invocations till the duration expires, all simply ignored. </p>
-<pre class="line-numbers language-ascii" data-language="ascii"><code class="language-ascii">                       throttle
-++ ++ ++ ++ ++ ++                        ++             ++
-|| || || || || ||  +--------------&gt;      ||             ||
-++ ++ ++ ++ ++ ++                        ++             ++
-                                           +------------+
-+------------+                               duration
-  duration<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+<pre class="line-numbers language-ascii" data-language="ascii"><code class="language-ascii">                              throttle
++1+ +2+ +3+ +4+ +5+ +6+     +--------------&gt;   +1+             +5+
++---duration---+                               +---duration--+ +---duration--+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>Here is a sample implementation -</p>
 <pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> <span class="token function-variable function">throttle</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">fn<span class="token punctuation">,</span> duration</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
@@ -190,10 +185,8 @@
 
 <h3 id="debounce"><a href="#debounce" class="headerlink" title="debounce"></a><code>debounce</code></h3><p><code>debounce</code> decorates the function to space out the funciton invocations with the given duration. The following is a diagram to illustrate it. A burst of function invocations received are spaced out with the given duration.</p>
 <pre class="line-numbers language-ascii" data-language="ascii"><code class="language-ascii">                        debounce
-++ ++ ++ ++ ++    +--------------&gt;                 ++          ++ 
-++ ++ ++ ++ ++    +--------------&gt;                 ++          ++ 
-+---------+                               +--------+   +-------+  
- duration                                duration   duration    <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
++1+ +2+ +3+ +4+ +5+    +--------------&gt;               +1+                +5+ 
++---duration---+                         +---duration---+   +---duration---+  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>Here is a sample implementation -</p>
 <pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> <span class="token function-variable function">debounce</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">causeFn<span class="token punctuation">,</span> duration</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
