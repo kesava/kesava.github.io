@@ -162,7 +162,7 @@ Didn't like it? <button id="try-another">Try Another</button>
   const len = swamilist.length;
   const randomPick = () => swamilist[Math.floor(Math.random() * len)];
   const updateName = e => {
-    const name = `${randomPick()} ${randomPick()}`;
+    const name = `${randomPick()} ${randomPick()} ${randomPick()}`;
     document.getElementById('name').innerHTML = name;
   };
   const tryBtn = document.getElementById('try-another');
