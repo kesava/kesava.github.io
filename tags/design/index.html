@@ -88,6 +88,8 @@
       <script >
         if (localStorage.getItem('preferredTheme') == 'dark') {
           setDarkMode(true)
+        } else {
+          setDarkMode(isItDarkYet());
         }
         function setDarkMode(isDark) {
           var darkBtn = document.getElementById('darkBtn')
@@ -102,6 +104,11 @@
             localStorage.removeItem('preferredTheme');
           }
           document.body.classList.toggle("darkmode");
+        }
+
+        function isItDarkYet() {
+          const hours = new Date().getHours();
+          return ((hours > 17) || (hours < 6));
         }
       </script>
     </h4>
