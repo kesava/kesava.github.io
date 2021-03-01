@@ -3,6 +3,6 @@ body.darkmode {
   color: rgb(256, 256, 256);
 }
 
-body.darkmode > a.footer-link {
+body.darkmode a.footer-link {
   color:rgb(256, 256, 256);
 }
