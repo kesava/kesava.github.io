@@ -7,21 +7,6 @@ const debounce = (func, timer) => {
 }
 
 const inputVol = document.getElementById('vol');
-inputVol.addEventListener('keyup', debounce(function (event) {
-  const num = document.getElementById('vol').value;
-  const decimalPart = (num.split('.').length > 1) ? `.${num.split('.')[1]}` : 0;
-  const base4List = convert2baseN({ input: parseFloat(decimalPart), base: 4, precision: 6 });
-
-  const base4Marks = list => list.map((x, i) => (((i + 1) % 2) == 0) ? evenMarks[x] : oddMarks[x]);
-  const teluguDescriptors = list => list.map((x, i) => fraclookup[i][x - 1]).filter(x => x !== undefined);
-  document.getElementById('base4').innerHTML = `${Math.floor(num)}${base4Marks(base4List).join('')}`;
-  document.getElementById('telugu').innerHTML = `${Math.floor(num)} ${teluguDescriptors(base4List).join(', ')}`;
-  console.log('------------------------------------');
-  console.log(base4Marks(base4List));
-  console.log(teluguDescriptors(base4List));
-  console.log('------------------------------------');
-
-}, 500));
 
 const fraclookup = [
   ['కాలు', 'అర', 'ముక్కాలు'],
@@ -52,3 +37,25 @@ const convert2baseN = ({ input, base, precision, accuracy }) => {
 
   return convertInternal({ input, iterationCount: 0, accumulator: [] });
 }
+
+const conversion = () => {
+  const num = document.getElementById('vol').value;
+  const decimalPart = (num.split('.').length > 1) ? `.${num.split('.')[1]}` : 0;
+
+  const base4List = convert2baseN({ input: parseFloat(decimalPart), base: 4, precision: 6 });
+  const base4ListAddition = base4List.map((n, i) => `${n} * ${(0.25 / (i + 1))}`);
+  const base4Marks = list => list.map((x, i) => (((i + 1) % 2) == 0) ? evenMarks[x] : oddMarks[x]);
+  const teluguDescriptors = list => list.map((x, i) => fraclookup[i][x - 1]).filter(x => x !== undefined);
+
+  document.getElementById('base4-markings').innerHTML = `${base4ListAddition.map(x => `( ${x} )`).join(" + <br/>")} = \n 0${decimalPart}`;
+
+  document.getElementById('base4').innerHTML = `${Math.floor(num)}${base4Marks(base4List).join('')}`;
+  document.getElementById('telugu').innerHTML = `${Math.floor(num)} ${teluguDescriptors(base4List).join(', ')}`;
+  console.log('------------------------------------');
+  console.log(base4Marks(base4List));
+  console.log(teluguDescriptors(base4List));
+  console.log('------------------------------------');
+};
+
+inputVol.addEventListener('keyup', debounce(conversion, 500));
+conversion();

@@ -14,7 +14,7 @@
   <title>Base 4 fractions in Telugu</title>
 
   
-  <meta name="description" content="Historically, Telugus used decimal system for writing integers, but used base 4 system for writing the fractions part.    This simple app helps you co">
+  <meta name="description" content="Historically, Telugus used decimal system for writing integers, but used base 4 system for writing the fractions part. This simple app helps you conve">
   
 
   <meta name="author" content="Kesava Mallela">
@@ -27,14 +27,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Base 4 fractions in Telugu" />
   
-  <meta property="og:description" content="Historically, Telugus used decimal system for writing integers, but used base 4 system for writing the fractions part.    This simple app helps you co">
+  <meta property="og:description" content="Historically, Telugus used decimal system for writing integers, but used base 4 system for writing the fractions part. This simple app helps you conve">
   
   <meta property="og:url" content="http://kesava.github.io/2018/10/28/base4-telugu/index.html" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Base 4 fractions in Telugu">
   
-  <meta name="twitter:description" content="Historically, Telugus used decimal system for writing integers, but used base 4 system for writing the fractions part.    This simple app helps you co">
+  <meta name="twitter:description" content="Historically, Telugus used decimal system for writing integers, but used base 4 system for writing the fractions part. This simple app helps you conve">
   
 
   
@@ -150,20 +150,23 @@
         <div class="trans">
             <h4>Base 4 fractions in Telugu</h4>
 
-  <div class="row text">
   <p>Historically, Telugus used decimal system for writing integers, but used base 4 system for writing the fractions part.</p>
-
-  <p>This simple app helps you convert decimal part to telugu base 4 notation and the equivalent telugu descriptors.</p>
-
-<p>  For more, read <a target="_blank" rel="noopener" href="https://blog.plover.com/math/telugu.html">this</a> fascinating blog post.</p>
+<p>This simple app helps you convert decimal part to telugu base 4 notation and the equivalent telugu descriptors.<br>For more, read a <a target="_blank" rel="noopener" href="https://blog.plover.com/math/telugu.html">this</a> fascinating blog post.</p>
+<div class="row">
+  <input type="number" name="vol" value="2.255" placeholder="Enter Vol in liters. e.g. 2.65" id="vol"/>
 </div>
 <div class="row">
-  <input type="number" name="vol" placeholder="Enter Vol in liters. e.g. 2.65" id="vol"/>
-</div>
-<div class="row">
+  <br/>
+  <div>The decimal part is broken down by base4 representation, so they all add.
+    <br/>
+    <code id="base4-markings"></code>
+  </div>
+  <br/>
+  Then the odd and even digits are given different marks, as a checksum --
   <div class="base4" id="base4"></div>
-</div>
-<div class="row">
+
+  <br/>
+  Here is the representation in spoken Telugu --
   <div class="telugu" id="telugu"></div>
 </div>
 <br/>
