@@ -2,3 +2,7 @@ body.darkmode {
   background: rgb(34, 34, 38);
   color: rgb(256, 256, 256);
 }
+
+body.darkmode > a.footer-link {
+  color:rgb(256, 256, 256);
+}
