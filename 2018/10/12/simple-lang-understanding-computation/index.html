@@ -11,32 +11,36 @@
   <meta charset="utf-8">
 
   
-  <title>All Posts - Kesava Mallela</title>
+  <title>Simple Toy Language from Understanding Computation</title>
 
   
-  <meta name="description" content="">
+  <meta name="description" content="This is a Javascript implentation of the toy language from Chapter 2 of “Understanding Computation”. It shows execution of expressions below. Need to ">
   
 
   <meta name="author" content="Kesava Mallela">
 
   
+  <meta property="og:image" content="http://kesava.github.io/2018/10/12/simple-lang-understanding-computation/undefined">
+  
 
   <meta property="og:site_name" content="Tech Notes for Self" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="All Posts - Kesava Mallela" />
+  <meta property="og:title" content="Simple Toy Language from Understanding Computation" />
   
-  <meta property="og:description" content="">
+  <meta property="og:description" content="This is a Javascript implentation of the toy language from Chapter 2 of “Understanding Computation”. It shows execution of expressions below. Need to ">
   
-  <meta property="og:url" content="http://kesava.github.io/archives/2018/10/index.html" />
+  <meta property="og:url" content="http://kesava.github.io/2018/10/12/simple-lang-understanding-computation/index.html" />
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="All Posts - Kesava Mallela">
+  <meta name="twitter:title" content="Simple Toy Language from Understanding Computation">
   
-  <meta name="twitter:description" content="">
+  <meta name="twitter:description" content="This is a Javascript implentation of the toy language from Chapter 2 of “Understanding Computation”. It shows execution of expressions below. Need to ">
   
 
   
-  <meta name="twitter:url" content="http://kesava.github.io/archives/2018/10/index.html" />
+  <meta name="twitter:image" content="http://kesava.github.io/2018/10/12/simple-lang-understanding-computation/undefined">
+  
+  <meta name="twitter:url" content="http://kesava.github.io/2018/10/12/simple-lang-understanding-computation/index.html" />
 
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -144,48 +148,61 @@
 </div>
 
         <div class="trans">
-          
-<h5>All Posts</h5>
+            <h4>Simple Toy Language from Understanding Computation</h4>
 
-
-    <article>
-      <div class="row">
-
-        <div class="three columns left lit">
-          <p class="bottom">Oct 28, 2018</p>
-        </div>
-        <div class="nine columns left mb-3">
-          <a href="/2018/10/28/base4-telugu/" class="">
-            
-              Base 4 fractions in Telugu
-            
-          </a>
-        </div>
-      </div>
-    </article>
-
-    <article>
-      <div class="row">
-
-        <div class="three columns left lit">
-          <p class="bottom">Oct 12, 2018</p>
-        </div>
-        <div class="nine columns left mb-3">
-          <a href="/2018/10/12/simple-lang-understanding-computation/" class="">
-            
-              Simple Toy Language from Understanding Computation
-            
-          </a>
-        </div>
-      </div>
-    </article>
-
-<div class="pagination-bar">
-  <ul class="pagination">
-    
-    
-  </ul>
+  <p>This is a Javascript implentation of the toy language from Chapter 2 of “Understanding Computation”. It shows execution of expressions below. Need to make it reactive at some point.</p>
+<style>
+  .editor {
+  border: 1px solid gray;
+  min-height: 20px;
+  margin: 5px;
+  padding: 5px;
+  width: 600px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 600; }
+</style>
+<div id="app">
 </div>
+<h4>Expression</h4>
+<div contenteditable="true" class="editor" id="editor">
+</div>
+<h4>Output</h4>
+<div class="editor" id="output">
+</div>
+  <p><a class="classtest-link" href="/tags/AST/" rel="tag">AST</a>, <a class="classtest-link" href="/tags/execution/" rel="tag">execution</a>, <a class="classtest-link" href="/tags/javascript/" rel="tag">javascript</a>, <a class="classtest-link" href="/tags/language-semantics/" rel="tag">language semantics</a> — Oct 12, 2018</p>
+  
+  <hr>
+<section id="comments" class="mt-2 mb-3">
+
+  <div id="disqus_thread">
+    <a href="#" class="button button-primary" onclick="loadDisqus();return false;">View / Make Comments</a>
+  </div>
+
+  <script>
+    var disqus_config = function() {
+      this.page.url = 'http://kesava.github.io/2018/10/12/simple-lang-understanding-computation/index.html';
+      this.page.identifier = '2018/10/12/simple-lang-understanding-computation/index.html';
+      this.page.title = 'Simple Toy Language from Understanding Computation';
+    };
+
+    var is_disqus_loaded = false;
+
+    function loadDisqus() {
+      if (!is_disqus_loaded) {
+        is_disqus_loaded = true;
+
+        var d = document,
+          s = d.createElement('script');
+        s.src = 'https://kesava.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+    }
+
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
 
 
           <div class="row mt-2">
@@ -229,6 +246,8 @@
 
   </div>
 
+  
+    <script src="/js/simple-toy-lang-understanding-computation.js"></script>
   
 
 
