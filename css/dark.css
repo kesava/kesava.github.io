@@ -6,3 +6,11 @@ body.darkmode {
 body.darkmode a.footer-link {
   color:rgb(256, 256, 256);
 }
+
+.btn-active {
+  display: block;
+}
+
+.btn-inactive {
+  display: none;
+}
