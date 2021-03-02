@@ -41,15 +41,17 @@ const convert2baseN = ({ input, base, precision, accuracy }) => {
 const conversion = () => {
   const num = document.getElementById('vol').value;
   const decimalPart = (num.split('.').length > 1) ? `.${num.split('.')[1]}` : 0;
+  const isEven = i => (i % 2) === 0;
+  const lookupMark = (x, i) => isEven(i + 1) ? evenMarks[x] : oddMarks[x];
 
   const base4List = convert2baseN({ input: parseFloat(decimalPart), base: 4, precision: 6 });
-  const base4ListAddition = base4List.map((n, i) => `${n} * ${(0.25 / (i + 1))}`);
-  const base4Marks = list => list.map((x, i) => (((i + 1) % 2) == 0) ? evenMarks[x] : oddMarks[x]);
+  const base4Eq = (n, i) => `${n} * ${(0.25 / (i + 1))}`;
+  const base4Marks = list => list.map(lookupMark);
   const teluguDescriptors = list => list.map((x, i) => fraclookup[i][x - 1]).filter(x => x !== undefined);
 
-  document.getElementById('base4-markings').innerHTML = `${base4ListAddition.map(x => `( ${x} )`).join(" + <br/>")} = \n 0${decimalPart}`;
+  document.getElementById('base4-markings').innerHTML = `${base4List.map((n, i) => `${lookupMark(n, i)} = ( ${base4Eq(n, i)} )`).join(" + <br/>")} = \n 0${decimalPart}`;
 
-  document.getElementById('base4').innerHTML = `${Math.floor(num)}${base4Marks(base4List).join('')}`;
+  document.getElementById('base4').innerHTML = `${Math.floor(num)}.${base4Marks(base4List).join('')}`;
   document.getElementById('telugu').innerHTML = `${Math.floor(num)} ${teluguDescriptors(base4List).join(', ')}`;
   console.log('------------------------------------');
   console.log(base4Marks(base4List));
