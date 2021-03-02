@@ -50,7 +50,8 @@ const conversion = () => {
   const base4Marks = list => list.map(lookupMark);
   const teluguDescriptors = list => list.map((x, i) => fraclookup[i][x - 1]).filter(x => x !== undefined);
 
-  document.getElementById('base4-markings').innerHTML = `${base4List.map((n, i) => `${lookupMark(n, i)} = ( ${base4Eq(n, i)} )`).join(" + <br/>")} = \n 0${decimalPart}`;
+  document.getElementById('base4-markings').innerHTML = base4List.map((n, i) => `(${ base4Eq(n, i) })`).join(" + <br/>") + " = \n" + `0${decimalPart}`;
+  document.getElementById('base4-lookup').innerHTML = base4List.map((x, i) => `${x} --> ${lookupMark(x, i)} (${isEven(i + 1) ? 'Even' : 'Odd'} position)`).join("<br/>");
 
   document.getElementById('base4').innerHTML = `${Math.floor(num)}.${base4Marks(base4List).join('')}`;
   document.getElementById('telugu').innerHTML = `${Math.floor(num)} ${teluguDescriptors(base4List).join(', ')}`;
