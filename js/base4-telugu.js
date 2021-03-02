@@ -43,9 +43,10 @@ const conversion = () => {
   const decimalPart = (num.split('.').length > 1) ? `.${num.split('.')[1]}` : 0;
   const isEven = i => (i % 2) === 0;
   const lookupMark = (x, i) => isEven(i + 1) ? evenMarks[x] : oddMarks[x];
+  const pow = (x, n) => Math.pow(x, n);
 
   const base4List = convert2baseN({ input: parseFloat(decimalPart), base: 4, precision: 6 });
-  const base4Eq = (n, i) => `${n} * ${(0.25 / (i + 1))}`;
+  const base4Eq = (n, i) => `${n} * (1 / ${pow(4, i + 1)})`;
   const base4Marks = list => list.map(lookupMark);
   const teluguDescriptors = list => list.map((x, i) => fraclookup[i][x - 1]).filter(x => x !== undefined);
 
