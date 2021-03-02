@@ -14,3 +14,7 @@ body.darkmode a.footer-link {
 .btn-inactive {
   display: none;
 }
+
+body.darkmode input[type="number"] {
+  background-color: rgb(34, 34, 38);
+}
