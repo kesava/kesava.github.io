@@ -1,0 +1,148 @@
+1:"$Sreact.fragment"
+2:I[1972,["619","static/chunks/619-ba102abea3e3d0e4.js","177","static/chunks/app/layout-673fefd86490d5b8.js"],"default"]
+3:I[9766,[],""]
+4:I[8924,[],""]
+5:I[2619,["619","static/chunks/619-ba102abea3e3d0e4.js","953","static/chunks/app/blog/%5Bslug%5D/page-2bef52ebe4a5e44e.js"],""]
+d:I[7150,[],""]
+:HL["/mynewblog/_next/static/media/5c0c2bcbaa4149ca-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/mynewblog/_next/static/media/c7b4fd33734710f7-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/mynewblog/_next/static/media/e400baae650c21fc-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/mynewblog/_next/static/media/eaead17c7dbfcd5d-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/mynewblog/_next/static/css/ff6e76d63dc6c767.css","style"]
+0:{"P":null,"b":"QyOyauy9QugTiXsnNGnlk","p":"/mynewblog","c":["","blog","vamana-asking-for-alms"],"i":false,"f":[[["",{"children":["blog",{"children":[["slug","vamana-asking-for-alms","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/mynewblog/_next/static/css/ff6e76d63dc6c767.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","className":"__variable_a7c6cf __variable_b4c272 __variable_0d27ef","children":["$","body",null,{"className":"antialiased min-h-screen flex flex-col","children":[["$","$L2",null,{}],["$","main",null,{"className":"flex-grow","children":["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}],["$","footer",null,{"className":"border-t border-neutral-200 dark:border-neutral-800 bg-background mt-12 sm:mt-20","children":["$","div",null,{"className":"container mx-auto px-4 sm:px-6 py-8 sm:py-12 max-w-4xl","children":[["$","div",null,{"className":"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-10 md:gap-12","children":[["$","div",null,{"className":"sm:col-span-2 md:col-span-1","children":[["$","h3",null,{"className":"font-display text-lg sm:text-xl font-bold text-heading mb-3 sm:mb-4","children":"Kesava Mallela"}],["$","p",null,{"className":"font-serif text-sm sm:text-base text-neutral-700 dark:text-neutral-400 leading-relaxed","children":"Software engineering, Telugu language learning, and cultural preservation."}]]}],["$","div",null,{"children":[["$","h4",null,{"className":"font-display font-semibold mb-3 sm:mb-4 text-heading text-sm sm:text-base","children":"Quick Links"}],["$","ul",null,{"className":"space-y-2 sm:space-y-3","children":[["$","li",null,{"children":["$","$L5",null,{"href":"/blog","className":"font-serif text-sm sm:text-base text-neutral-700 dark:text-neutral-400 hover:text-heading transition-colors","children":"Blog"}]}],["$","li",null,{"children":["$","$L5",null,{"href":"/books","className":"font-serif text-sm sm:text-base text-neutral-700 dark:text-neutral-400 hover:text-heading transition-colors","children":"Books"}]}],["$","li",null,{"children":["$","$L5",null,{"href":"/translations","className":"font-serif text-sm sm:text-base text-neutral-700 dark:text-neutral-400 hover:text-heading transition-colors","children":"Translations"}]}],["$","li",null,{"children":["$","$L5",null,{"href":"/projects","className":"font-serif text-sm sm:text-base text-neutral-700 dark:text-neutral-400 hover:text-heading transition-colors","children":"Projects"}]}],["$","li",null,{"children":["$","$L5",null,{"href":"/about","className":"font-serif text-sm sm:text-base text-neutral-700 dark:text-neutral-400 hover:text-heading transition-colors","children":"About"}]}]]}]]}],["$","div",null,{"children":[["$","h4",null,{"className":"font-display font-semibold mb-3 sm:mb-4 text-heading text-sm sm:text-base","children":"Connect"}],["$","ul",null,{"className":"space-y-2 sm:space-y-3","children":[["$","li",null,{"children":["$","a",null,{"href":"https://github.com/kesava","target":"_blank","rel":"noopener noreferrer","className":"font-serif text-sm sm:text-base text-neutral-700 dark:text-neutral-400 hover:text-heading transition-colors","children":"GitHub"}]}],"$L6","$L7"]}]]}]]}],"$L8"]}]}]]}]}]]}],{"children":["blog","$L9",{"children":[["slug","vamana-asking-for-alms","d"],"$La",{"children":["__PAGE__","$Lb",{},null,false]},null,false]},null,false]},null,false],"$Lc",false]],"m":"$undefined","G":["$d",[]],"s":false,"S":true}
+f:I[4431,[],"OutletBoundary"]
+11:I[5278,[],"AsyncMetadataOutlet"]
+13:I[4431,[],"ViewportBoundary"]
+15:I[4431,[],"MetadataBoundary"]
+16:"$Sreact.suspense"
+6:["$","li",null,{"children":["$","a",null,{"href":"https://twitter.com/kesava","target":"_blank","rel":"noopener noreferrer","className":"font-serif text-sm sm:text-base text-neutral-700 dark:text-neutral-400 hover:text-heading transition-colors","children":"Twitter"}]}]
+7:["$","li",null,{"children":["$","a",null,{"href":"https://linkedin.com/in/kesava","target":"_blank","rel":"noopener noreferrer","className":"font-serif text-sm sm:text-base text-neutral-700 dark:text-neutral-400 hover:text-heading transition-colors","children":"LinkedIn"}]}]
+8:["$","div",null,{"className":"border-t border-neutral-200 dark:border-neutral-800 mt-8 sm:mt-12 pt-6 sm:pt-8 text-center","children":["$","p",null,{"className":"font-serif text-xs sm:text-sm text-neutral-600 dark:text-neutral-500","children":["© ",2025," Kesava Mallela. All rights reserved."]}]}]
+9:["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+a:["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+b:["$","$1","c",{"children":["$Le",null,["$","$Lf",null,{"children":["$L10",["$","$L11",null,{"promise":"$@12"}]]}]]}]
+c:["$","$1","h",{"children":[null,[["$","$L13",null,{"children":"$L14"}],["$","meta",null,{"name":"next-size-adjust","content":""}]],["$","$L15",null,{"children":["$","div",null,{"hidden":true,"children":["$","$16",null,{"fallback":null,"children":"$L17"}]}]}]]}]
+18:T1ace,<h1>Vamana Charitra - Vamana asking for alms</h1>
+<p>From పోతన భాగవతం</p>
+<p>Translated by Kesava Mallela</p>
+<pre><code>రాజ్యంబు గలిగె నేనిం
+బూజ్యులకును యాచకులకు భూమిసురులకున్
+భాజ్యముగ బ్రతుక డేనిం
+ద్యాజ్యంబులు వాని జన్మ ధన గేహంబుల్.
+</code></pre>
+<pre><code>The revered, the destitute, and the wise—
+they must be honored with alms when you hold the throne.
+Life, riches, and dwellings must be forsaken,
+should you falter in this duty.
+</code></pre>
+<pre><code> మున్నెన్నుదురు వదాన్యుల
+నెన్నెడుచో నిన్నుఁ ద్రిభువనేశుం డనుచున్;
+ఇన్నిదినంబుల నుండియు
+నెన్నఁడు నినుఁ బెట్టు మనుచు నీండ్రము జేయన్.
+</code></pre>
+<pre><code>The generous would choose you
+as the finest across all worlds.
+Never have I troubled you
+with requests for offerings.
+</code></pre>
+<pre><code>ఒంటివాఁడ నాకు నొకటి రెం డడుగుల
+మేర యిమ్ము సొమ్ము మేర యొల్ల;
+గోర్కిఁదీర బ్రహ్మకూకటి ముట్టెద
+దానకుతుకసాంద్ర! దానవేంద్ర!"
+</code></pre>
+<pre><code>O generous lord! O mighty king!
+I stand alone—
+Just grant me space, a step or two,
+No more I ask, no more I need.
+Such joy would lift my soul so high,
+As if I touched the Brahma's hair!
+</code></pre>
+<pre><code>"ఉన్నమాటలెల్ల నొప్పును విప్రుండ!
+సత్య గతులు వృద్ధ సమ్మతంబు;
+లడుగఁ దలఁచి కొంచె మడిగితివో చెల్ల;
+దాత పెంపు సొంపుఁ దలఁపవలదె."
+</code></pre>
+<pre><code>O young Brahmin boy!
+Your words ring true, and I agree,
+The old and wise would nod in praise,
+Yet when you chose to ask, dear child,
+Did you not weigh the giver's grace?
+</code></pre>
+<pre><code>"వసుధాఖండము వేఁడితో? గజములన్ వాంఛించితో? వాజులన్
+వెసనూహించితొ? కోరితో యువతులన్ వీక్షించి కాంక్షించితో?
+పసిబాలుండవు; నేర వీ వడుగ; నీ భాగ్యంబు లీపాటి గా
+కసురేంద్రుండు పదత్రయం బడుగ నీ యల్పంబు నీ నేర్చునే?"
+</code></pre>
+<pre><code>You could have demanded vast kingdoms to rule,
+You could have sought mighty war elephants to command,
+You could have claimed the finest stallions to ride,
+or even the prettiest damsels to grace your home.
+You are but a child! You don't know what to ask.
+How could this magnanimous king grant you merely three steps?
+</code></pre>
+<pre><code>"గొడుగో. జన్నిదమో, కమండలువొ, నాకున్ముంజియో, దండమో,
+వడుఁగే నెక్కడ భూము లెక్కడ? కరుల్, వామాక్షు, లశ్వంబు లె
+క్క**డ****?**నిత్యోచిత కర్మ మెక్కడ? మదాకాంక్షామితంబైన మూఁ
+డడుగుల్ మేరయ త్రోవ కిచ్చుటది బ్రహ్మాండంబు నా పాలికిన్.
+</code></pre>
+<pre><code>An umbrella, fibers woven into a sacred thread,
+a hermit's pot, a simple waist band —
+These are the things I dear.
+Kingdoms, elephants, stallions, and radiant maidens—
+what purpose do they serve a bachelor ascetic like me?
+Grant me, but three steps of land,
+and I shall be over the moon.
+</code></pre>
+<pre><code>వ్యాప్తింబొందక వగవక
+ప్రాప్తంబగు లేశమైనఁ బదివే లనుచుం
+దృప్తింజెందని మనుజుఁడు
+సప్తద్వీపముల నయినఁ జక్కంబడునే?
+</code></pre>
+<pre><code>A man who soars on cloud nine or sinks like a stone,
+and doesn't get contented with what little he gets --
+Will such a man ever find peace,
+even if he inherits a kingdom spanning seven seas?
+</code></pre>
+<pre><code>ఆశాపాశము దాఁ గడున్ నిడుపు; లే దంతంబు రాజేంద్ర! వా
+రాశిప్రావృత మేదినీవలయ సామ్రాజ్యంబు చేకూడియుం
+గాసింబొందిరిఁ గాక వైన్య గయ భూకాంతాదులున్నర్థకా
+మాశంబాయఁగ నేర్చిరే మును నిజాశాంతంబులం జూచిరే.
+</code></pre>
+<pre><code>O King of Kings! The tether of greed stretches without end.
+The mighty rulers of the past, Prutha and Gaya,
+though their empires reached from shore to shore,
+could never loosen their grasp on wealth and desire—
+they, too, were bound by its hold.
+</code></pre>
+<pre><code>సంతుష్టుఁడీ మూఁడు జగములఁ బూజ్యుండు;
+సంతోషి కెప్పుడుఁ జరుఁగు సుఖము
+సంతోషిఁ గాకుంట సంసార హేతువు;
+సంతసంబున ముక్తిసతియు దొరకుఁ
+బూఁటపూఁటకు జగంబుల యదృచ్ఛాలాభ;
+తుష్టిని దేజంబు తోన పెరుఁగుఁ
+బరితోష హీనతఁ బ్రభ చెడిపోవును;
+జలధార ననలంబు సమయునట్లు
+
+నీవు రాజ వనుచు నిఖిలంబు నడుగుట
+దగవు గాదు నాకుఁ; దగిన కొలఁది
+యేను వేఁడికొనిన యీపదత్రయమునుఁ
+జాల దనక యిమ్ము; చాలుఁజాలు.
+</code></pre>
+<pre><code>Honored is the man who rests in contentment.
+Joyful is the man who radiates cheer.
+Burdened are the ones bound to return.
+Freed are the ones who embrace joy.
+Resplendent are those who dwell in peace.
+Just as water soothes burning embers,
+Luster fades away, when joy departs.
+
+You may be the king,
+But I cannot plead you for all I desire.
+Grant me those three steps of land,
+As I have asked you.
+</code></pre>
+e:["$","div",null,{"className":"container mx-auto px-6 py-20 max-w-2xl","children":["$","article",null,{"children":[["$","$L5",null,{"href":"/blog","className":"font-serif inline-flex items-center gap-2 mb-12 text-neutral-600 dark:text-neutral-500 hover:text-heading transition-colors text-sm","children":"← Essays"}],["$","header",null,{"className":"mb-16 text-center border-b border-neutral-200 dark:border-neutral-800 pb-12","children":[["$","h1",null,{"className":"font-display text-5xl md:text-6xl font-bold mb-8 text-heading leading-tight tracking-tight","children":"Vamana Asking for Alms"}],["$","div",null,{"className":"font-serif text-sm text-neutral-500 dark:text-neutral-600 mb-6 uppercase tracking-wide","children":"October 24, 2024"}],["$","div",null,{"className":"flex flex-wrap gap-4 justify-center","children":[["$","$L5","translations",{"href":"/blog/tag/translations","className":"font-serif text-sm text-neutral-600 dark:text-neutral-500 hover:text-heading transition-colors","children":"translations"}],["$","$L5","telugu",{"href":"/blog/tag/telugu","className":"font-serif text-sm text-neutral-600 dark:text-neutral-500 hover:text-heading transition-colors","children":"telugu"}],["$","$L5","poetry",{"href":"/blog/tag/poetry","className":"font-serif text-sm text-neutral-600 dark:text-neutral-500 hover:text-heading transition-colors","children":"poetry"}],["$","$L5","pothana",{"href":"/blog/tag/pothana","className":"font-serif text-sm text-neutral-600 dark:text-neutral-500 hover:text-heading transition-colors","children":"pothana"}],["$","$L5","vamana",{"href":"/blog/tag/vamana","className":"font-serif text-sm text-neutral-600 dark:text-neutral-500 hover:text-heading transition-colors","children":"vamana"}],["$","$L5","bhagavatam",{"href":"/blog/tag/bhagavatam","className":"font-serif text-sm text-neutral-600 dark:text-neutral-500 hover:text-heading transition-colors","children":"bhagavatam"}],["$","$L5","contentment",{"href":"/blog/tag/contentment","className":"font-serif text-sm text-neutral-600 dark:text-neutral-500 hover:text-heading transition-colors","children":"contentment"}]]}]]}],["$","div",null,{"className":"prose prose-lg font-serif","dangerouslySetInnerHTML":{"__html":"$18"}}]]}]}]
+14:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+10:null
+12:{"metadata":[["$","title","0",{"children":"Kesava Mallela - Books, Translations, and Technology"}],["$","meta","1",{"name":"description","content":"Essays on books, Telugu translations, and software engineering"}]],"error":null,"digest":"$undefined"}
+17:"$12:metadata"

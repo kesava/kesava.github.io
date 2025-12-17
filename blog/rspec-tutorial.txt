@@ -1,0 +1,331 @@
+1:"$Sreact.fragment"
+2:I[1972,["619","static/chunks/619-ba102abea3e3d0e4.js","177","static/chunks/app/layout-673fefd86490d5b8.js"],"default"]
+3:I[9766,[],""]
+4:I[8924,[],""]
+5:I[2619,["619","static/chunks/619-ba102abea3e3d0e4.js","953","static/chunks/app/blog/%5Bslug%5D/page-2bef52ebe4a5e44e.js"],""]
+d:I[7150,[],""]
+:HL["/mynewblog/_next/static/media/5c0c2bcbaa4149ca-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/mynewblog/_next/static/media/c7b4fd33734710f7-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/mynewblog/_next/static/media/e400baae650c21fc-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/mynewblog/_next/static/media/eaead17c7dbfcd5d-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/mynewblog/_next/static/css/ff6e76d63dc6c767.css","style"]
+0:{"P":null,"b":"QyOyauy9QugTiXsnNGnlk","p":"/mynewblog","c":["","blog","rspec-tutorial"],"i":false,"f":[[["",{"children":["blog",{"children":[["slug","rspec-tutorial","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/mynewblog/_next/static/css/ff6e76d63dc6c767.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","className":"__variable_a7c6cf __variable_b4c272 __variable_0d27ef","children":["$","body",null,{"className":"antialiased min-h-screen flex flex-col","children":[["$","$L2",null,{}],["$","main",null,{"className":"flex-grow","children":["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}],["$","footer",null,{"className":"border-t border-neutral-200 dark:border-neutral-800 bg-background mt-12 sm:mt-20","children":["$","div",null,{"className":"container mx-auto px-4 sm:px-6 py-8 sm:py-12 max-w-4xl","children":[["$","div",null,{"className":"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-10 md:gap-12","children":[["$","div",null,{"className":"sm:col-span-2 md:col-span-1","children":[["$","h3",null,{"className":"font-display text-lg sm:text-xl font-bold text-heading mb-3 sm:mb-4","children":"Kesava Mallela"}],["$","p",null,{"className":"font-serif text-sm sm:text-base text-neutral-700 dark:text-neutral-400 leading-relaxed","children":"Software engineering, Telugu language learning, and cultural preservation."}]]}],["$","div",null,{"children":[["$","h4",null,{"className":"font-display font-semibold mb-3 sm:mb-4 text-heading text-sm sm:text-base","children":"Quick Links"}],["$","ul",null,{"className":"space-y-2 sm:space-y-3","children":[["$","li",null,{"children":["$","$L5",null,{"href":"/blog","className":"font-serif text-sm sm:text-base text-neutral-700 dark:text-neutral-400 hover:text-heading transition-colors","children":"Blog"}]}],["$","li",null,{"children":["$","$L5",null,{"href":"/books","className":"font-serif text-sm sm:text-base text-neutral-700 dark:text-neutral-400 hover:text-heading transition-colors","children":"Books"}]}],["$","li",null,{"children":["$","$L5",null,{"href":"/translations","className":"font-serif text-sm sm:text-base text-neutral-700 dark:text-neutral-400 hover:text-heading transition-colors","children":"Translations"}]}],["$","li",null,{"children":["$","$L5",null,{"href":"/projects","className":"font-serif text-sm sm:text-base text-neutral-700 dark:text-neutral-400 hover:text-heading transition-colors","children":"Projects"}]}],["$","li",null,{"children":["$","$L5",null,{"href":"/about","className":"font-serif text-sm sm:text-base text-neutral-700 dark:text-neutral-400 hover:text-heading transition-colors","children":"About"}]}]]}]]}],["$","div",null,{"children":[["$","h4",null,{"className":"font-display font-semibold mb-3 sm:mb-4 text-heading text-sm sm:text-base","children":"Connect"}],["$","ul",null,{"className":"space-y-2 sm:space-y-3","children":[["$","li",null,{"children":["$","a",null,{"href":"https://github.com/kesava","target":"_blank","rel":"noopener noreferrer","className":"font-serif text-sm sm:text-base text-neutral-700 dark:text-neutral-400 hover:text-heading transition-colors","children":"GitHub"}]}],"$L6","$L7"]}]]}]]}],"$L8"]}]}]]}]}]]}],{"children":["blog","$L9",{"children":[["slug","rspec-tutorial","d"],"$La",{"children":["__PAGE__","$Lb",{},null,false]},null,false]},null,false]},null,false],"$Lc",false]],"m":"$undefined","G":["$d",[]],"s":false,"S":true}
+f:I[4431,[],"OutletBoundary"]
+11:I[5278,[],"AsyncMetadataOutlet"]
+13:I[4431,[],"ViewportBoundary"]
+15:I[4431,[],"MetadataBoundary"]
+16:"$Sreact.suspense"
+6:["$","li",null,{"children":["$","a",null,{"href":"https://twitter.com/kesava","target":"_blank","rel":"noopener noreferrer","className":"font-serif text-sm sm:text-base text-neutral-700 dark:text-neutral-400 hover:text-heading transition-colors","children":"Twitter"}]}]
+7:["$","li",null,{"children":["$","a",null,{"href":"https://linkedin.com/in/kesava","target":"_blank","rel":"noopener noreferrer","className":"font-serif text-sm sm:text-base text-neutral-700 dark:text-neutral-400 hover:text-heading transition-colors","children":"LinkedIn"}]}]
+8:["$","div",null,{"className":"border-t border-neutral-200 dark:border-neutral-800 mt-8 sm:mt-12 pt-6 sm:pt-8 text-center","children":["$","p",null,{"className":"font-serif text-xs sm:text-sm text-neutral-600 dark:text-neutral-500","children":["© ",2025," Kesava Mallela. All rights reserved."]}]}]
+9:["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+a:["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+b:["$","$1","c",{"children":["$Le",null,["$","$Lf",null,{"children":["$L10",["$","$L11",null,{"promise":"$@12"}]]}]]}]
+c:["$","$1","h",{"children":[null,[["$","$L13",null,{"children":"$L14"}],["$","meta",null,{"name":"next-size-adjust","content":""}]],["$","$L15",null,{"children":["$","div",null,{"hidden":true,"children":["$","$16",null,{"fallback":null,"children":"$L17"}]}]}]]}]
+18:T4037,<p>This is an attempt to put together a comprehensive rspec tutorial including guard/spork/growl and later factories, associations, devise, cancan and some common testing patterns.</p>
+<p>RSpec is a great tool in the test/behavior driven design process of writing human readable specifications that direct and validate the development of our application. We put the specifications (or specs) in a spec folder; we have one spec file for each class. We also have a spec_helper.rb that specifies basic test setup environment.</p>
+<h2>Setup</h2>
+<p>In order to facilitate test driven development, we want to continuously monitor our app folder and run tests in the background as we continue to work on development of the application. We will use rspec along with Guard and spork towards this end. Guard is a command line tool to easily handle events on file system modifications. Spork is a server for testing frameworks that forks before each run to ensure a clean testing state. It's pretty easy to install Rspec, guard and spork. On the command line and run this:</p>
+<p><code>gem install rspec</code></p>
+<p>or include it as part of Gemfile</p>
+<p>Gemfile contents to run rspec/guard/spork/growl</p>
+<pre><code class="language-ruby">group :development do
+ gem 'rspec-rails'
+ gem 'guard'
+ gem 'guard-rspec'
+end
+
+group :test do
+ gem 'rspec'
+ gem 'growl'
+ gem 'rb-fsevent'
+ gem 'spork-rails'
+ gem 'guard-spork'
+end
+</code></pre>
+<p>and do</p>
+<p><code>bundle install</code></p>
+<p>Now download Mac OSX Growl here. Double click on the downloaded dmg file and install Growl. Relaunch the dmg file and click on the Extras folder, then click on growlnotify, and install it using the pkg file. Now, assuming that you have checked out the code and Rspec tests in place (in spec folder), type this in the terminal to initiate a Guardfile with the Guard for Rspec:</p>
+<p><code>bundle exec guard init rspec</code></p>
+<p>If you are running it for the first time, this creates a Guardfile, but since the codebase already consists of a Guardfile, it should just use it. Guardfile specifies what directories should be monitored for any modifications. Spec_helper specifies a few key things including -</p>
+<ul>
+<li>Required ruby classes to run tests, like rubygems, spork, factory_girl, webrat etc.</li>
+<li>What should the initial test load environment should look like, i.e. <code>spork.prefork</code></li>
+<li>What should spork be loading for each fork i.e. <code>spork.each_run</code></li>
+</ul>
+<h2>A sample project</h2>
+<p>Now, let's set up a sample project. We're going to create two classes: Book and Library. Our Book objects will just store a title and author. Our Library object will store a list of books and allow us to fetch them by author.</p>
+<h3>The Book class</h3>
+<p>Book probably has a model, controller and a view in the app folder. Similarly we would have a models, controllers and views sub folders in our spec folder. Further, we would have book_spec.rb in models folder, books_controller_spec.rb in controllers sub folder and corresponding spec files in views.</p>
+<p>Let's start with tests for a Book model class.</p>
+<p>Basic Book Class</p>
+<pre><code class="language-ruby">require 'spec_helper'
+  describe Book do
+end
+</code></pre>
+<p>This is how we start - with a describe block.</p>
+<p>Our parameter to describe explains what we're testing: this could be a string, but in our case we're using the class name. Everything related to Book's model tests would go into this block. There is usually a before block that specifies initialization that needs to happen before every test. It reads something like this -</p>
+<p>a before block</p>
+<pre><code class="language-ruby">before :each do
+    @book = Book.new(:title => "Lorem Ipsum", :author => "John Doe")
+end
+</code></pre>
+<p>Notice how we're making it an instance variable, by prepending the variable name with @. We need to do this so that our variable will be accessible from within our tests. Otherwise, we'll just get a local variable that's only good inside the before block.</p>
+<p>Now, lets write our first test -</p>
+<pre><code class="language-ruby">describe "#new" do
+  it "takes three parameters and returns a Book object" do @book.should be_an_instance_of Book
+end
+</code></pre>
+<p>We're using a nested describe block here to say we're describing the actions of a specific method. You'll notice we've used the string #new; it's a convention in Ruby and often a best practice in rspec as it leads to better documentation when you run the tests.</p>
+<p>Here, our test simply confirms that we're indeed made a Book object. Notice the grammar we use here: object.should do_something. Most tests take this form. You have an object and you start by calling should or should_not on the object. Then, you pass to that object the call to another function. In this case that's be_an_instance_of.</p>
+<p>Since you have guard/spork/growl running in the background, growl should report that the test should fail. In TDD, you want to write just enough code to fix the test. So in this case, you can create book.rb under app/models which should create an instance of Book class.</p>
+<pre><code class="language-ruby">class Book
+end
+</code></pre>
+<p>Growl should now pass the test as we can now create hollow Book objects. We should add more tests about title and author.</p>
+<pre><code class="language-ruby">describe "#title" do
+  it "returns the correct title" do
+      @book.title.should eql "Title"
+  end
+end
+describe "#author" do
+  it "returns the correct author" do
+      @book.author.should eql "Author"
+  end
+end
+</code></pre>
+<p>The tests should fail again as the Book class doesn't have title and author attributes. You should go back to Book.rb and create a migration with author and title attributes and once you have done that your test should pass.</p>
+<p>So that's the pretty much the core of TDD. Write a test (or few related tests), watch it fail, make it pass, refactor and repeat.</p>
+<p>Let's spec out a little bit of Library class as well before we move onto Controller tests.</p>
+<h3>The Library Class</h3>
+<p>Lets say we have just one library and our library has many books, in which case our library and books have a has_many relationship. Let's spec out the library test -</p>
+<p>A basic Library spec</p>
+<pre><code class="language-ruby">require 'spec_helper'
+describe 'Library object' do
+    before :each do
+        @library = [@book1 = Book.create("Javascript", "Douglas Crockford"),
+           @book2 = Book.create("Rails Way", "Obie Fernandez"),
+           @book3 = Book.create("Merb Way", "Obie Fernandez")]
+    end
+
+  context "#by_author" do
+        it "returns all books by a author" do
+          @library.by_author("Obie Fernandez").length.should == 2
+      end
+  end
+
+  context "#add_book" do
+      it "accepts new books" do
+          @library.add_book(Book.new("Javascript Patterns", "Jane Eyre"))
+          @library.length.should == 4
+      end
+  end
+end
+</code></pre>
+<p>You should see all the tests fail and you can repeat the TDD process we discussed previously. But before we move any further, we want to learn about factories.</p>
+<h3>Factories</h3>
+<p>Factories are replacement for fixtures with pretty straightforward syntax with support for multiple build strategies and class inheritance. This provides an excellent overview of how to get started with factories.</p>
+<p>We can define our factories here as follows -</p>
+<p>Factories for Library and Book</p>
+<pre><code class="language-ruby">Factory.define :library do |library|
+  library.name                "City Library"
+    library.location        "Springfield"
+end
+
+Factory.define :book do |book|
+    book.title                 "Sample Title"
+    book.author                "John Doe"
+    book.association         :library #belongs_to library relationship
+end
+</code></pre>
+<p>From here onwards, you dont have to write down verbose Book.new every time you want a new Book object. You want to use factories to write something like</p>
+<p>Factories for Library and Book</p>
+<pre><code class="language-ruby">@book = Factory.create(:book)
+</code></pre>
+<p>If you want to book attributes hash with just title but no author, you can do something like</p>
+<p>merge attributes</p>
+<pre><code class="language-ruby">attrs = Factory.build_attributes_for(:book).merge({:author => ''})
+</code></pre>
+<p>You can use sequences, fakers etc to model more realistic looking fake objects. Refer to sequence and faker documentation for how-to.</p>
+<h3>Books Controller</h3>
+<p>You want to make sure most of your Book related tests go into the model spec code, because thats where you get your most bang for buck. Controller specs usually test for basic http verbs/actions. If your controllers do any thing more than that, it probably needs to be moved to models to keep in line with 'fat models and skinny controller' paradigm.</p>
+<p>Here's how books_controller_spec.rb could look like -</p>
+<p>books_controller_spec.rb</p>
+<pre><code class="language-ruby">require 'spec_helper'
+
+describe UsersController do
+  context '#index' do
+        it "has the correct template" do
+            get :index
+            response.should be_success
+            response.should render_template(:index)
+        end
+
+        it "gets list of all books" do
+            @book1 = Factory.create(:book)
+            @book2 = Factory.create(:book)
+            @book3 = Factory.create(:book)
+
+          get :index
+            assigns(:books).length.should == 3
+        end
+    end
+end
+</code></pre>
+<p>Controller specs come with three variables <code>@response</code>, <code>@request</code> and <code>@somethingelse</code>. HTTP verb actions can be written as follows -</p>
+<p>Common HTTP actions in controller testing</p>
+<pre><code class="language-ruby">get :index
+get :show, {:id => @book.id}
+post :create, {:title => "Sample", :author => "John Doe"}
+</code></pre>
+<p>After the request is made, the response variable gets assigned the http response. You could check the status or read the body or do many other response related actions.</p>
+<h3>Devise tests</h3>
+<p>Lets say you need a membership to access the library and you have decided to use devise for authentication. Your controllers now restrict access to models unless you are an authorized user. When you add devise authentication to your application_controller, the controller tests would simply redirect to a login page instead of behaving as expected.</p>
+<p>Devise specifies how to test controllers and views here.</p>
+<p>We could do define the required login method as a macro so that we can reuse it as part of our controller specs.</p>
+<p>Login Macros for Devise</p>
+<pre><code class="language-ruby">module ControllerMacros
+ def login_user
+   before(:each) do
+     @request.env["devise.mapping"] = Devise.mappings[:user]
+     @user = Factory.create(:user)
+     sign_in @user
+   end
+ end
+end
+</code></pre>
+<p>We now need to extend the above macro as part of <code>spec_helper</code></p>
+<p>rspec config for login macros</p>
+<pre><code class="language-ruby">RSpec.configure do |config|
+...
+ config.include Devise::TestHelpers, :type => :controller
+ config.extend ControllerMacros, :type => :controller
+end
+</code></pre>
+<p>The controller tests should now be able to login as a valid user and the tests should behave as expected.</p>
+<h3>CanCan tests</h3>
+<p>Now lets say, you have two different user roles - librarian and a member. You could use STI to define the roles and CanCan to define the abilities of each role. CanCan requires you to define abilities for the roles in ability.rb.</p>
+<p>ability.rb is the only place where all the role logic is defined. All the controllers now do is verify against the rules specified in ability.rb. So, the best testing strategy seems to be test the regular controllers as say :admin role and specify a whole different set of tests for ability.rb.</p>
+<p>Using factories to define librarian and user roles -</p>
+<p>Factories for Librarian and Member user roles</p>
+<pre><code class="language-ruby">Factory.define :user do |user|
+    user.first_name              "John"
+    user.last_name               "Doe"
+    user.email                   "test@example.com"
+    user.password                "pass123"
+    user.password_confirmation   "pass123"
+end
+
+Factory.define :librarian, :parent => :user do |user|
+    user.type                    "Librarian"
+end
+
+Factory.define :member, :parent => :user do |user|
+    user.type                    "Member"
+end
+</code></pre>
+<p>The devise macro can now be rewritten as</p>
+<p>Login macro to login as a librarian</p>
+<pre><code class="language-ruby">module ControllerMacros
+ def login_librarian
+   before(:each) do
+     @request.env["devise.mapping"] = Devise.mappings[:user]
+     @lib = Factory.create(:librarian)
+     sign_in @lib
+   end
+ end
+end
+</code></pre>
+<p>Controllers can now include login_librarian as part of their before block so that tests will have valid session to test with.</p>
+<h3>Ability tests</h3>
+<p>You want to verify whether you have really specified the role-rules you think you did, so its important test the rules specified in ability.rb. It is also important to keep in mind that the tests are not against CanCan, but they should be against the rules specified in ability.rb. The tests could look something like this -</p>
+<p>Testing against ability.rb</p>
+<pre><code class="language-ruby">require "cancan/matchers"
+
+describe Ability do
+  before(:each) do
+  end
+  [Library, Book].each do |model|
+    it "should allow any member to read a #{model.to_s} details but not delete them" do
+      user= Factory(:member)
+      ability = Ability.new(user)
+      ability.should be_able_to(:show, model.new)
+      ability.should_not be_able_to(:delete, Factory(model.to_s.underscore.to_sym))
+    end
+  end
+
+  [Library, Book].each do |model|
+    it "should allow any librarian user to delete a #{model.to_s} " do
+      user= Factory(:librarian)
+      ability = Ability.new(user)
+      ability.should be_able_to(:delete,  Factory.build(model.to_s.underscore.to_sym))
+    end
+  end
+end
+</code></pre>
+<h2>Common Test Patterns</h2>
+<h3>Model patterns</h3>
+<p>Model tests are largely dependent on the specifics of the application. But a few common test patterns can be identified around the following areas.</p>
+<h6>Testing for validations</h6>
+<p>testing for validations</p>
+<pre><code class="language-ruby">it "should have valid name" do
+  @group = Factory.new(:group, :name => '') # with no name
+  @group.should_not be_an_instance_of(Group)
+end
+# Group.rb
+# validates_presence_of :name
+</code></pre>
+<h6>Testing for a model method</h6>
+<p>testing for a model method</p>
+<pre><code class="language-ruby">it "should have a users method" do
+  @group = Factory.create(:group)
+  @group.should respond_to(:users)
+end
+</code></pre>
+<h3>Controller patterns</h3>
+<p>While model tests are specific to functionality of an application, controller tests follow similar patterns no matter what the application is supposed to do. Here are a few common test patterns that are employed in rspec controller testing.</p>
+<h6>Testing for a template</h6>
+<p>testing for a template</p>
+<pre><code class="language-ruby">it "should render the correct template" do
+  get :new
+  response.should render_template(:new)
+end
+</code></pre>
+<h6>Testing for the value of response variables</h6>
+<p>testing for a response variable</p>
+<pre><code class="language-ruby">it "should return an instance of a group" do
+  get :new
+  assigns(:group).should be_a_new(Group)
+end
+</code></pre>
+<h6>Testing for a successful post action</h6>
+<p>testing for a successful post action</p>
+<pre><code class="language-ruby">it "should post" do
+  expect {
+    post :create, {:group => Factory.attributes_for(:group)}
+  }.to change(Group, :count).by(1)
+end
+</code></pre>
+<h6>Testing for a unsuccessful post action</h6>
+<p>testing for an unsuccessful post action</p>
+<pre><code class="language-ruby">it "should return back to new page when post fails" do
+  expect {
+    post :create, {:group => Factory.attributes_for(:group).merge({:name => ''})}
+  }.to change(Group, :count).by(0)
+  response.should render_template(:new)
+end
+</code></pre>
+<h6>Testing for a delete action</h6>
+<p>testing for a delete action</p>
+<pre><code class="language-ruby">it "should delete the group" do
+  @group = Factory.create(:group)
+  expect {
+    delete :destroy, {:id => @group.id}
+  }.to change(Group, :count).by(-1)
+end
+</code></pre>
+e:["$","div",null,{"className":"container mx-auto px-6 py-20 max-w-2xl","children":["$","article",null,{"children":[["$","$L5",null,{"href":"/blog","className":"font-serif inline-flex items-center gap-2 mb-12 text-neutral-600 dark:text-neutral-500 hover:text-heading transition-colors text-sm","children":"← Essays"}],["$","header",null,{"className":"mb-16 text-center border-b border-neutral-200 dark:border-neutral-800 pb-12","children":[["$","h1",null,{"className":"font-display text-5xl md:text-6xl font-bold mb-8 text-heading leading-tight tracking-tight","children":"A tutorial on using RSpec and TDD"}],["$","div",null,{"className":"font-serif text-sm text-neutral-500 dark:text-neutral-600 mb-6 uppercase tracking-wide","children":"April 23, 2012"}],["$","div",null,{"className":"flex flex-wrap gap-4 justify-center","children":[["$","$L5","tutorial",{"href":"/blog/tag/tutorial","className":"font-serif text-sm text-neutral-600 dark:text-neutral-500 hover:text-heading transition-colors","children":"tutorial"}],["$","$L5","rspec",{"href":"/blog/tag/rspec","className":"font-serif text-sm text-neutral-600 dark:text-neutral-500 hover:text-heading transition-colors","children":"rspec"}],["$","$L5","tdd",{"href":"/blog/tag/tdd","className":"font-serif text-sm text-neutral-600 dark:text-neutral-500 hover:text-heading transition-colors","children":"tdd"}],["$","$L5","testing",{"href":"/blog/tag/testing","className":"font-serif text-sm text-neutral-600 dark:text-neutral-500 hover:text-heading transition-colors","children":"testing"}],["$","$L5","ruby",{"href":"/blog/tag/ruby","className":"font-serif text-sm text-neutral-600 dark:text-neutral-500 hover:text-heading transition-colors","children":"ruby"}],["$","$L5","rails",{"href":"/blog/tag/rails","className":"font-serif text-sm text-neutral-600 dark:text-neutral-500 hover:text-heading transition-colors","children":"rails"}]]}]]}],["$","div",null,{"className":"prose prose-lg font-serif","dangerouslySetInnerHTML":{"__html":"$18"}}]]}]}]
+14:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+10:null
+12:{"metadata":[["$","title","0",{"children":"Kesava Mallela - Books, Translations, and Technology"}],["$","meta","1",{"name":"description","content":"Essays on books, Telugu translations, and software engineering"}]],"error":null,"digest":"$undefined"}
+17:"$12:metadata"
