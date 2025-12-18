@@ -9,7 +9,7 @@ export default function FeaturedBooks() {
     <section className="container mx-auto px-6 py-20 max-w-3xl border-t border-neutral-200 dark:border-neutral-800">
       <div className="mb-16">
         <h2 className="font-display text-4xl font-bold mb-4 text-heading">Recent Book Reviews</h2>
-        <p className="font-serif text-lg text-neutral-700 dark:text-neutral-400">Latest books I've read and reviewed.</p>
+        <p className="font-serif text-lg text-neutral-700 dark:text-neutral-400">Latest books I&apos;ve read and reviewed.</p>
       </div>
 
       <div className="space-y-16">
