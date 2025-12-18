@@ -4,6 +4,7 @@ date: "2024-03-07"
 excerpt: "Timothy Egan's chilling account of how D.C. Stephenson and the KKK rose to terrifying power in Indiana until Madge Oberholtzer's tragic courage brought justice."
 tags: ["books", "kkk", "american-history", "indiana", "justice"]
 author: "Kesava"
+recommended: true
 ---
 
 # A Fever in the Heartland

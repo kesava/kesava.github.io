@@ -4,6 +4,7 @@ date: "2025-04-25"
 excerpt: "A fascinating look at how language isn't a set of rules but rather an improvisational game of charades we all play together. Morten Christiansen and Nick Chater challenge everything you thought you knew about how we communicate."
 tags: ["books", "language", "linguistics", "cognition"]
 author: "Kesava"
+recommended: true
 ---
 
 # The Language Game

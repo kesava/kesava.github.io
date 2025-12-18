@@ -4,6 +4,7 @@ date: "2024-05-25"
 excerpt: "David O'Stewart explores James Madison's collaborations with Hamilton, Washington, Jefferson, Monroe, and Dolley, revealing how America's Constitution came to be."
 tags: ["books", "james-madison", "american-history", "constitution", "founding-fathers"]
 author: "Kesava"
+recommended: true
 ---
 
 # Madison's Gift

@@ -4,6 +4,7 @@ date: "2024-11-15"
 excerpt: "David McCullough's inspiring account of how two self-taught brothers from Dayton, Ohio changed what humans could do. No credentials, no funding, no audience—just grit, curiosity, and patient experimentation."
 tags: ["books", "aviation", "innovation", "history", "biography"]
 author: "Kesava"
+recommended: true
 ---
 
 # The Wright Brothers

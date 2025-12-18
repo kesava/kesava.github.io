@@ -5,9 +5,6 @@ excerpt: "A devotee challenges Krishna, calling his legendary rescues mere myths
 tags: ["translations", "telugu", "poetry", "krishna", "devotional"]
 author: "Kesava"
 ---
-
-# A definition of myth
-
 ```
 కరి గాచింది హుళక్కి
 ద్రౌపదికి కోకల్ మెచ్చి ఇచ్చింది దబ్బర

@@ -8,6 +8,7 @@ export interface BlogPost {
   author?: string;
   readingTime?: string;
   coverImage?: string;
+  recommended?: boolean;
 }
 
 export interface BlogMetadata {

@@ -1,137 +1,174 @@
-# MyNewBlog
+# Kesava's Blog
 
-A modern, dark-themed blog built with Next.js 15, TypeScript, and Tailwind CSS. Features a beautiful gradient design, MDX support for blog posts, and a project showcase.
+A personal blog featuring book reviews, essays, and Telugu translations. Built with Next.js 15, TypeScript, and Tailwind CSS with a classic magazine-inspired design.
 
 ## Features
 
-- **Next.js 15** - Latest version with App Router
-- **TypeScript** - Full type safety
-- **Tailwind CSS** - Dark gradient theme with custom colors
-- **MDX Support** - Write blog posts with MDX
-- **Static Export** - Deploy to GitHub Pages
-- **Responsive Design** - Mobile-friendly layout
-- **Project Showcase** - Display your featured projects
-- **Code Highlighting** - Syntax highlighting for code blocks
+- **Book Reviews** - In-depth reviews with magazine-style two-column layout on desktop
+- **Telugu Translations** - Side-by-side original and English translations
+- **Essays** - Personal writing with elegant typography
+- **Tag System** - Browse content by topic
+- **Dark Mode** - Automatic dark theme support
+- **Responsive Design** - Mobile-friendly with adaptive layouts
+- **Indian-Inspired Design** - Custom decorative elements and serif typography
 
-## Getting Started
+## Quick Start
 
-### Installation
+### Adding Content
 
-1. Install dependencies:
+**See detailed guides:**
+- 📖 [QUICKSTART.md](./QUICKSTART.md) - Quick reference for adding content
+- 📚 [WORKFLOW.md](./WORKFLOW.md) - Complete workflow documentation
 
-```bash
-npm install
-```
+**Templates:**
+- [TEMPLATE_BOOK_SUMMARY.md](./TEMPLATE_BOOK_SUMMARY.md) - Book summary template
+- [TEMPLATE_TRANSLATION.md](./TEMPLATE_TRANSLATION.md) - Translation template
 
 ### Development
 
-Run the development server:
-
 ```bash
-npm run dev
+npm install      # Install dependencies
+npm run dev      # Start dev server (http://localhost:3000)
+npm run build    # Build for production
+npm run deploy   # Deploy to GitHub Pages
 ```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-### Building for Production
-
-Build the static site:
-
-```bash
-npm run build
-```
-
-The output will be in the `out` directory.
 
 ## Project Structure
 
 ```
-mynewblog/
-├── app/                    # Next.js App Router pages
-│   ├── layout.tsx         # Root layout with Header/Footer
-│   ├── page.tsx           # Homepage
-│   └── globals.css        # Global styles
-├── components/            # React components
-│   ├── Header.tsx        # Navigation header
-│   ├── Footer.tsx        # Site footer
-│   ├── Hero.tsx          # Hero section
-│   ├── FeaturedProjects.tsx  # Project showcase
-│   └── AboutSection.tsx  # About section
-├── content/              # Blog content
-│   └── posts/           # Blog posts in MD/MDX
-├── lib/                 # Utility functions
-│   ├── blog.ts         # Blog post utilities
-│   └── projects.ts     # Project data
-├── types/              # TypeScript types
-│   ├── blog.ts        # Blog types
-│   └── project.ts     # Project types
-└── next.config.mjs    # Next.js configuration
+kesava/
+├── books/                          # Legacy book markdown files (deprecated)
+└── mynewblog/
+    ├── app/                        # Next.js App Router
+    │   ├── page.tsx               # Homepage
+    │   ├── books/page.tsx         # Book reviews listing
+    │   ├── translations/page.tsx  # Translations listing
+    │   ├── blog/
+    │   │   ├── page.tsx          # Essays listing
+    │   │   ├── [slug]/page.tsx   # Post/book/translation pages
+    │   │   └── tag/[tag]/page.tsx # Tag pages
+    │   └── globals.css            # Global styles with custom typography
+    ├── components/                 # React components
+    │   ├── Header.tsx             # Navigation
+    │   └── Footer.tsx             # Footer
+    ├── content/posts/              # Blog posts, book summaries, and translations
+    │   ├── rivers-of-powers.md    # Book (tagged "books")
+    │   ├── a-definition-of-myth.md # Translation (tagged "translations")
+    │   └── ...
+    ├── lib/                        # Data and utilities
+    │   ├── books.ts               # Legacy books registry (for /books/ folder)
+    │   ├── translations.ts        # Translations registry
+    │   └── blog.ts                # Blog post utilities (reads all content/posts/)
+    ├── WORKFLOW.md                 # Complete workflow guide
+    ├── QUICKSTART.md               # Quick reference
+    ├── TEMPLATE_BOOK_REVIEW.md     # Book review template
+    └── TEMPLATE_TRANSLATION.md     # Translation template
 ```
 
-## Writing Blog Posts
+## Content Types
 
-Create new blog posts in `content/posts/` with `.md` or `.mdx` extension:
+### 📚 Book Reviews
 
-```markdown
----
-title: "Your Post Title"
-date: "2025-12-16"
-excerpt: "A brief description of your post"
-tags: ["Next.js", "React"]
-author: "Your Name"
----
+- Location: `mynewblog/content/posts/` (markdown with frontmatter)
+- Tag: First tag MUST be `"books"`
+- Display: Two-column magazine layout on desktop
+- Format: Can be essay-style reviews OR bullet-point summaries
+- Features: Frontmatter with title, date, excerpt, tags, author
+- URL: `kesava.github.io/blog/[slug]`
 
-# Your Content Here
+**Example:** `content/posts/rivers-of-powers.md`, `content/posts/deng-xiaoping-and-the-transformation-of-china.md`
 
-Write your blog post content using Markdown or MDX.
-```
+### 🌐 Translations
 
-## Customization
+- Location: `mynewblog/content/posts/` (markdown with frontmatter)
+- Registry: `mynewblog/lib/translations.ts`
+- Display: Side-by-side original and English on desktop
+- Features: Original poet, source, category, language tags
+- URL: `kesava.github.io/blog/[slug]`
 
-### Update Project Information
+**Example:** `content/posts/a-definition-of-myth.md`
 
-Edit the project data in `lib/projects.ts` to showcase your own projects.
+### ✍️ Essays
 
-### Modify Theme Colors
+- Location: `mynewblog/content/posts/` (markdown with frontmatter)
+- Display: Two-column magazine layout on desktop
+- URL: `kesava.github.io/blog/[slug]`
 
-Update colors in `tailwind.config.ts`:
+## Design Features
 
-```typescript
-colors: {
-  accent: {
-    purple: '#a855f7',
-    blue: '#3b82f6',
-    pink: '#ec4899',
-  }
-}
-```
+### Typography
 
-### Update Site Metadata
+- **Display Font:** Playfair Display (headings)
+- **Body Font:** Lora (serif)
+- **Code Font:** Crimson Text
+- **Drop Caps:** First letter of paragraphs
+- **Line Height:** 1.8 for comfortable reading
 
-Modify `app/layout.tsx` to change the site title and description.
+### Layout Modes
+
+**Desktop (≥1024px):**
+- Essays: Two-column flowing text
+- Translations: Side-by-side aligned columns
+- Book Reviews: Two-column flowing text
+
+**Mobile (<1024px):**
+- All content: Single column, optimized for mobile reading
+
+### Decorative Elements
+
+- Indian-inspired corner filigree on code blocks
+- Subtle column dividers with brand color
+- Custom borders and shadows
+- Dark mode with warm accent colors
+
+## Tag System
+
+**All tags are browsable at:** `/blog/tag/[tagname]`
+
+Tags from both blog posts and books are included. Common tags:
+- Subject: `biography`, `history`, `science`, `technology`, `politics`
+- Region: `india`, `china`, `america`, `asia`
+- Language: `telugu`, `sanskrit`, `tamil`
+- Theme: `devotional`, `wisdom`, `poetry`, `translations`
 
 ## Deployment
 
-This project is configured for GitHub Pages deployment:
+**Deployed to:** https://kesava.github.io
 
-1. Update `basePath` in `next.config.mjs` to match your repository name
-2. Update `homepage` in `package.json`
-3. Build and deploy:
-
+**Deploy command:**
 ```bash
-npm run build
-# Deploy the 'out' directory to GitHub Pages
+npm run deploy
 ```
+
+This will:
+1. Build the static site
+2. Create `.nojekyll` file
+3. Push to `gh-pages` branch
+4. Deploy to GitHub Pages
+
+**Configuration:**
+- `basePath`: `/` (root domain)
+- `homepage`: `https://kesava.github.io`
+- Output: Static HTML in `out/` directory
 
 ## Technologies
 
-- **Framework**: Next.js 15
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Content**: MDX with gray-matter
-- **Syntax Highlighting**: rehype-highlight
-- **Markdown**: remark-gfm
+- **Framework:** Next.js 15 (App Router, Static Export)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS with custom design system
+- **Content:** Markdown with gray-matter frontmatter
+- **Rendering:** remark (MD → HTML)
+- **Fonts:** Google Fonts (Playfair Display, Lora)
+- **Deployment:** GitHub Pages via gh-pages
+
+## Contributing
+
+This is a personal blog. To add your own content:
+1. Fork the repository
+2. Follow the guides in [WORKFLOW.md](./WORKFLOW.md)
+3. Submit a pull request
 
 ## License
 
-MIT
+Content: All Rights Reserved
+Code: MIT License

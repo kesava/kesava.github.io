@@ -4,6 +4,7 @@ date: "2024-01-19"
 excerpt: "Hu Anyan's memoir captures the precarious life of a gig worker in modern China—the invisible pressures, small humiliations, and surprising universality of labor in the digital age."
 tags: ["books", "memoir", "labor", "china", "gig-economy", "society"]
 author: "Kesava"
+recommended: true
 ---
 
 # I Deliver Parcels in Beijing

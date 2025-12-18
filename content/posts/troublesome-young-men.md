@@ -4,6 +4,7 @@ date: "2024-05-25"
 excerpt: "Lynne Olson chronicles the palace intrigue behind one of history's most consequential no-confidence votes that ousted Chamberlain and brought Churchill to power."
 tags: ["books", "churchill", "british-history", "world-war-2", "politics"]
 author: "Kesava"
+recommended: true
 ---
 
 # Troublesome Young Men

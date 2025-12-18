@@ -4,6 +4,7 @@ date: "2024-08-05"
 excerpt: "An English journalist's journey across India following the monsoon from Kerala to Cherrapunji. A meditation on why India's unpredictable rains shaped a culture infinitely patient with uncertainty."
 tags: ["books", "india", "monsoon", "weather", "travel", "culture"]
 author: "Kesava"
+recommended: true
 ---
 
 # Chasing the Monsoon

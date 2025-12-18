@@ -2,7 +2,8 @@ import Link from 'next/link';
 import { getFeaturedProjects } from '@/lib/projects';
 
 export default function FeaturedProjects() {
-  const projects = getFeaturedProjects();
+  // Get only the first 3 featured projects
+  const projects = getFeaturedProjects().slice(0, 3);
 
   return (
     <section className="container mx-auto px-6 py-20 max-w-3xl border-t border-neutral-200 dark:border-neutral-800">

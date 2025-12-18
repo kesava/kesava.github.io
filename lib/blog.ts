@@ -30,6 +30,7 @@ export function getAllPosts(): BlogPost[] {
         author: data.author,
         readingTime: calculateReadingTime(content),
         coverImage: data.coverImage,
+        recommended: data.recommended || false,
       } as BlogPost;
     });
 
@@ -64,6 +65,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
       author: data.author,
       readingTime: calculateReadingTime(content),
       coverImage: data.coverImage,
+      recommended: data.recommended || false,
     } as BlogPost;
   } catch (error) {
     return null;

@@ -4,6 +4,7 @@ date: "2024-06-14"
 excerpt: "Kingsuk Nag chronicles the political journey of India's poet-statesman from RSS activist to Prime Minister, navigating coalition politics and party ideology."
 tags: ["books", "atal-bihari-vajpayee", "indian-politics", "biography", "bjp"]
 author: "Kesava"
+recommended: true
 ---
 
 # Atal Bihari Vajpayee: A man for all seasons

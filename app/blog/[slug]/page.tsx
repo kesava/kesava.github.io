@@ -1,19 +1,65 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getPostBySlug, getAllPosts } from '@/lib/blog';
+import { getAllBooks, getBookById } from '@/lib/books';
 import { remark } from 'remark';
 import html from 'remark-html';
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+  const books = getAllBooks();
+
+  return [
+    ...posts.map((post) => ({ slug: post.slug })),
+    ...books.map((book) => ({ slug: book.slug })),
+  ];
 }
 
 async function markdownToHtml(markdown: string) {
   const result = await remark().use(html).process(markdown);
   return result.toString();
+}
+
+async function getBookContent(slug: string) {
+  const book = getAllBooks().find(b => b.slug === slug);
+  if (!book) return null;
+
+  // Try to find the markdown file in the books directory
+  const booksDirectory = path.join(process.cwd(), '..', 'books');
+
+  // Try different file name variations
+  const possibleFiles = fs.readdirSync(booksDirectory)
+    .filter(f => f.endsWith('.md') || f.endsWith('.mdx'));
+
+  // Match by slug similarity
+  const matchingFile = possibleFiles.find(fileName => {
+    const normalized = fileName.replace(/\.(md|mdx)$/, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-');
+    return normalized.includes(slug.toLowerCase()) || slug.toLowerCase().includes(normalized);
+  });
+
+  if (!matchingFile) {
+    // Return the book metadata with description as content
+    return {
+      ...book,
+      content: book.description,
+      date: book.year || '2024',
+    };
+  }
+
+  const fullPath = path.join(booksDirectory, matchingFile);
+  const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const { data, content } = matter(fileContents);
+
+  return {
+    ...book,
+    content: content || book.description,
+    date: book.year || '2024',
+  };
 }
 
 export default async function BlogPost({
@@ -22,7 +68,27 @@ export default async function BlogPost({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+
+  // First try to get a blog post
+  let post = getPostBySlug(slug);
+  let isBook = false;
+
+  // If not found, try to get a book
+  if (!post) {
+    const bookContent = await getBookContent(slug);
+    if (bookContent) {
+      post = {
+        slug: bookContent.slug,
+        title: bookContent.title,
+        date: bookContent.date,
+        excerpt: bookContent.description,
+        content: bookContent.content,
+        tags: bookContent.tags,
+        author: bookContent.author,
+      };
+      isBook = true;
+    }
+  }
 
   if (!post) {
     notFound();
@@ -30,13 +96,16 @@ export default async function BlogPost({
 
   const contentHtml = await markdownToHtml(post.content);
 
-  // Determine if this is a translation or regular essay
+  // Determine if this is a translation, book, or regular essay
   const isTranslation = post.tags?.includes('translations');
-  const backLink = isTranslation ? '/translations' : '/blog';
-  const backLinkText = isTranslation ? '← Translations' : '← Essays';
+  const hasBookTag = post.tags?.includes('books');
+  const isBookPost = isBook || hasBookTag;
+
+  const backLink = isBookPost ? '/books' : isTranslation ? '/translations' : '/blog';
+  const backLinkText = isBookPost ? '← Book Reviews' : isTranslation ? '← Translations' : '← Essays';
 
   return (
-    <div className="container mx-auto px-6 py-20 max-w-2xl">
+    <div className="container mx-auto px-6 py-20 max-w-7xl">
       <article>
         <Link
           href={backLink}
@@ -49,6 +118,12 @@ export default async function BlogPost({
           <h1 className="font-display text-5xl md:text-6xl font-bold mb-8 text-heading leading-tight tracking-tight">
             {post.title}
           </h1>
+
+          {isBookPost && post.author && (
+            <p className="font-serif text-xl text-neutral-600 dark:text-neutral-500 mb-6 italic">
+              by {post.author}
+            </p>
+          )}
 
           <div className="font-serif text-sm text-neutral-500 dark:text-neutral-600 mb-6 uppercase tracking-wide">
             {new Date(post.date).toLocaleDateString('en-US', {
@@ -74,7 +149,7 @@ export default async function BlogPost({
         </header>
 
         <div
-          className="prose prose-lg font-serif"
+          className={`prose prose-lg font-serif ${isTranslation ? 'prose-translation' : 'prose-columns'}`}
           dangerouslySetInnerHTML={{ __html: contentHtml }}
         />
       </article>

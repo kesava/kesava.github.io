@@ -4,6 +4,7 @@ date: "2024-06-23"
 excerpt: "Ramachandra Guha's magnificent 1100-page biography captures both the saint revered across generations and the complex human being Gandhi truly was."
 tags: ["books", "gandhi", "biography", "indian-history", "independence"]
 author: "Kesava"
+recommended: true
 ---
 
 # Gandhi - The Years that changed the world 1914-1948.

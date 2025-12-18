@@ -4,6 +4,7 @@ date: "2024-03-12"
 excerpt: "Sebastian Edwards chronicles how Chile became the testing ground for Chicago School free-market economics, from miracle to mass protests."
 tags: ["books", "chile", "economics", "neoliberalism", "latin-america"]
 author: "Kesava"
+recommended: true
 ---
 
 # The Chile Project

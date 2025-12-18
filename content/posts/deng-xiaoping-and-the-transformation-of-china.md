@@ -4,6 +4,7 @@ date: "2024-03-10"
 excerpt: "Ezra Vogel's magisterial 750-page biography reveals how Deng Xiaoping transformed China into a global power through pragmatic reforms and economic experimentation."
 tags: ["books", "deng-xiaoping", "china", "biography", "economics"]
 author: "Kesava"
+recommended: true
 ---
 
 # Deng Xiaoping and the Transformation of China

@@ -1,13 +1,21 @@
 import Link from 'next/link';
 import { getAllPosts } from '@/lib/blog';
+import { getAllBooks } from '@/lib/books';
 import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
+  const books = getAllBooks();
   const tags = new Set<string>();
 
+  // Add tags from blog posts
   posts.forEach((post) => {
     post.tags?.forEach((tag) => tags.add(tag));
+  });
+
+  // Add tags from books
+  books.forEach((book) => {
+    book.tags.forEach((tag) => tags.add(tag));
   });
 
   return Array.from(tags).map((tag) => ({
@@ -22,9 +30,12 @@ export default async function TagPage({
 }) {
   const { tag } = await params;
   const allPosts = getAllPosts();
-  const posts = allPosts.filter((post) => post.tags?.includes(tag));
+  const allBooks = getAllBooks();
 
-  if (posts.length === 0) {
+  const posts = allPosts.filter((post) => post.tags?.includes(tag));
+  const books = allBooks.filter((book) => book.tags.includes(tag));
+
+  if (posts.length === 0 && books.length === 0) {
     notFound();
   }
 
@@ -42,11 +53,12 @@ export default async function TagPage({
           {tag}
         </h1>
         <p className="font-serif text-lg text-neutral-700 dark:text-neutral-500">
-          {posts.length} {posts.length === 1 ? 'post' : 'posts'}
+          {posts.length + books.length} {posts.length + books.length === 1 ? 'item' : 'items'}
         </p>
       </header>
 
       <div className="space-y-20">
+        {/* Blog Posts */}
         {posts.map((post) => (
           <article key={post.slug} className="border-b border-neutral-200 dark:border-neutral-800 pb-16 last:border-b-0">
             <Link href={`/blog/${post.slug}`}>
@@ -90,6 +102,50 @@ export default async function TagPage({
               className="font-serif text-heading underline decoration-neutral-400 dark:decoration-neutral-600 hover:decoration-neutral-900 dark:hover:decoration-neutral-300 transition-colors decoration-2 underline-offset-2"
             >
               Continue reading
+            </Link>
+          </article>
+        ))}
+
+        {/* Books */}
+        {books.map((book) => (
+          <article key={book.id} className="border-b border-neutral-200 dark:border-neutral-800 pb-16 last:border-b-0">
+            <Link href={`/blog/${book.slug}`}>
+              <h2 className="font-display text-4xl font-bold mb-4 text-heading hover:text-accent dark:hover:text-accent transition-colors leading-tight">
+                {book.title}
+              </h2>
+            </Link>
+
+            <p className="font-serif text-sm text-neutral-500 dark:text-neutral-600 mb-4 italic">
+              by {book.author}
+            </p>
+
+            <p className="font-serif text-neutral-800 dark:text-neutral-300 mb-8 leading-relaxed text-lg">
+              {book.description}
+            </p>
+
+            {book.tags && book.tags.length > 0 && (
+              <div className="flex flex-wrap gap-4 mb-6">
+                {book.tags.map((tagName) => (
+                  <Link
+                    key={tagName}
+                    href={`/blog/tag/${tagName}`}
+                    className={`font-serif text-sm transition-colors ${
+                      tagName === tag
+                        ? 'text-accent dark:text-accent font-semibold'
+                        : 'text-neutral-600 dark:text-neutral-500 hover:text-heading'
+                    }`}
+                  >
+                    {tagName}
+                  </Link>
+                ))}
+              </div>
+            )}
+
+            <Link
+              href={`/blog/${book.slug}`}
+              className="font-serif text-heading underline decoration-neutral-400 dark:decoration-neutral-600 hover:decoration-neutral-900 dark:hover:decoration-neutral-300 transition-colors decoration-2 underline-offset-2"
+            >
+              Read Review
             </Link>
           </article>
         ))}

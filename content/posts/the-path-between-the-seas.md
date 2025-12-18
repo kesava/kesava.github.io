@@ -4,6 +4,7 @@ date: "2024-08-05"
 excerpt: "David McCullough's epic account of one of history's greatest engineering feats. From French failure to American triumph, the story of cutting a continent in half and connecting two oceans."
 tags: ["books", "engineering", "history", "panama-canal", "infrastructure"]
 author: "Kesava"
+recommended: true
 ---
 
 # The Path Between the Seas

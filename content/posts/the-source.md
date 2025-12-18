@@ -4,6 +4,7 @@ date: "2024-06-05"
 excerpt: "Martin Doyle explores how America's 250,000 rivers and streams shaped the nation, and how America transformed them through canals, dams, and infrastructure."
 tags: ["books", "rivers", "infrastructure", "american-history", "water"]
 author: "Kesava"
+recommended: true
 ---
 
 # The Source

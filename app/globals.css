@@ -301,6 +301,75 @@ pre code {
   @apply rounded-none my-12;
 }
 
+/* Magazine-style two-column layout for essays and translations on desktop */
+@media (min-width: 1024px) {
+  .prose-columns {
+    column-count: 2;
+    column-gap: 3rem;
+    column-rule: 1px solid rgba(139, 69, 19, 0.15);
+  }
+
+  .dark .prose-columns {
+    column-rule: 1px solid rgba(212, 165, 116, 0.2);
+  }
+
+  /* Prevent column breaks inside these elements */
+  .prose-columns h1,
+  .prose-columns h2,
+  .prose-columns h3,
+  .prose-columns h4,
+  .prose-columns h5,
+  .prose-columns h6,
+  .prose-columns blockquote,
+  .prose-columns pre {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Keep lists together when possible */
+  .prose-columns ul,
+  .prose-columns ol {
+    break-inside: avoid-column;
+  }
+
+  /* Adjust drop cap for column layout */
+  .prose-columns p:first-of-type::first-letter {
+    @apply float-left text-6xl font-bold mr-2 mt-1;
+    line-height: 0.8;
+  }
+
+  /* Translation layout: side-by-side code blocks using CSS Grid */
+  .prose-translation {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  /* Code blocks in translations should not be in columns */
+  .prose-translation pre {
+    grid-column: span 1;
+    margin: 1rem 0;
+  }
+
+  /* First code block (original text) goes in left column */
+  .prose-translation pre:nth-of-type(1) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  /* Second code block (translation) goes in right column, same row */
+  .prose-translation pre:nth-of-type(2) {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  /* Any other content should span both columns */
+  .prose-translation > *:not(pre) {
+    grid-column: 1 / -1;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

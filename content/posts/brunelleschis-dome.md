@@ -4,6 +4,7 @@ date: "2025-04-25"
 excerpt: "Ross King's masterful account of how Filippo Brunelleschi built the impossible—a massive dome over Florence's cathedral without wooden scaffolding, revolutionizing architecture and engineering in the process."
 tags: ["books", "architecture", "engineering", "renaissance", "florence"]
 author: "Kesava"
+recommended: true
 ---
 
 # Brunelleschi's Dome
