@@ -4,7 +4,7 @@ export default function Hero() {
   return (
     <section className="container mx-auto px-6 py-32 max-w-3xl">
       <div className="text-center border-b border-neutral-200 dark:border-neutral-800 pb-16">
-        <h1 className="font-display text-6xl md:text-7xl font-bold mb-8 text-heading leading-tight tracking-tight">
+        <h1 className="font-display text-4xl md:text-5xl font-bold mb-8 text-heading leading-tight tracking-tight">
           Kesava Mallela
         </h1>
         <p className="font-serif text-xl md:text-2xl text-neutral-800 dark:text-neutral-400 mb-12 leading-relaxed max-w-2xl mx-auto">

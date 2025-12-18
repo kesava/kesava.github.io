@@ -182,7 +182,7 @@ export const books: Book[] = [
     slug: 'abundance',
     year: '2025',
     featured: true,
-    recommendationLevel: 'highly_recommended',
+    recommendationLevel: 'recommended',
   },
   {
     id: 'empress-of-the-nile',

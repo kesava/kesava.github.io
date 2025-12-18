@@ -72,6 +72,7 @@ export default async function BlogPost({
   // First try to get a blog post
   let post = getPostBySlug(slug);
   let isBook = false;
+  let bookData = null;
 
   // If not found, try to get a book
   if (!post) {
@@ -87,6 +88,13 @@ export default async function BlogPost({
         author: bookContent.author,
       };
       isBook = true;
+      bookData = bookContent;
+    }
+  } else {
+    // Check if this post is about a book by looking up the slug
+    const book = getAllBooks().find(b => b.slug === slug);
+    if (book) {
+      bookData = book;
     }
   }
 
@@ -115,7 +123,31 @@ export default async function BlogPost({
         </Link>
 
         <header className="mb-16 text-center border-b border-neutral-200 dark:border-neutral-800 pb-12">
-          <h1 className="font-display text-5xl md:text-6xl font-bold mb-8 text-heading leading-tight tracking-tight">
+          <h1 className="font-display text-5xl md:text-6xl font-bold mb-8 text-heading leading-tight tracking-tight flex items-center justify-center gap-3">
+            {bookData?.recommendationLevel && (
+              <span className="inline-flex items-center gap-1">
+                {bookData.recommendationLevel === 'highly_recommended' ? (
+                  <>
+                    <span className="inline-flex items-center justify-center w-8 h-8 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex-shrink-0" title="Highly Recommended">
+                      <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    </span>
+                    <span className="inline-flex items-center justify-center w-8 h-8 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex-shrink-0" title="Highly Recommended">
+                      <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    </span>
+                  </>
+                ) : (
+                  <span className="inline-flex items-center justify-center w-8 h-8 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex-shrink-0" title="Recommended">
+                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  </span>
+                )}
+              </span>
+            )}
             {post.title}
           </h1>
 

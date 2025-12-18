@@ -1,7 +1,7 @@
 import Hero from '@/components/Hero';
 import FeaturedBooks from '@/components/FeaturedBooks';
 import FeaturedProjects from '@/components/FeaturedProjects';
-import AboutSection from '@/components/AboutSection';
+import StatsSection from '@/components/StatsSection';
 
 export default function Home() {
   return (
@@ -9,7 +9,7 @@ export default function Home() {
       <Hero />
       <FeaturedBooks />
       <FeaturedProjects />
-      <AboutSection />
+      <StatsSection />
     </div>
   );
 }
