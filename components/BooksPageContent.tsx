@@ -16,6 +16,12 @@ export default function BooksPageContent() {
     ? allBooks.filter((book) => book.year === selectedYear)
     : allBooks;
 
+  // Calculate book counts per year
+  const yearCounts = years.reduce((acc, year) => {
+    acc[year] = allBooks.filter((book) => book.year === year).length;
+    return acc;
+  }, {} as Record<string, number>);
+
   return (
     <div className="container mx-auto px-6 py-20 max-w-2xl">
       <header className="mb-20 text-center border-b border-neutral-200 dark:border-neutral-800 pb-12">
@@ -28,7 +34,7 @@ export default function BooksPageContent() {
             : "Books I've read and reviewed—history, science, engineering, language, and ideas that shaped the world."}
         </p>
         {selectedYear && (
-          <p className="font-serif text-sm text-neutral-600 dark:text-neutral-500 mt-4">
+          <p className="font-serif text-sm text-neutral-600 dark:text-neutral-400 mt-4">
             Showing {books.length} book{books.length !== 1 ? 's' : ''}
           </p>
         )}
@@ -43,11 +49,11 @@ export default function BooksPageContent() {
               href="/books"
               className={`font-serif text-sm transition-colors px-4 py-2 border rounded-md ${
                 !selectedYear
-                  ? 'bg-heading text-white border-heading'
-                  : 'text-neutral-600 dark:text-neutral-500 border-neutral-300 dark:border-neutral-700 hover:text-heading hover:border-heading'
+                  ? 'bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 border-neutral-900 dark:border-neutral-100'
+                  : 'text-neutral-600 dark:text-neutral-400 border-neutral-300 dark:border-neutral-700 hover:text-heading hover:border-heading'
               }`}
             >
-              All
+              All ({allBooks.length})
             </Link>
             {years.map((year) => (
               <Link
@@ -55,11 +61,11 @@ export default function BooksPageContent() {
                 href={`/books?year=${year}`}
                 className={`font-serif text-sm transition-colors px-4 py-2 border rounded-md ${
                   selectedYear === year
-                    ? 'bg-heading text-white border-heading'
-                    : 'text-neutral-600 dark:text-neutral-500 border-neutral-300 dark:border-neutral-700 hover:text-heading hover:border-heading'
+                    ? 'bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 border-neutral-900 dark:border-neutral-100'
+                    : 'text-neutral-600 dark:text-neutral-400 border-neutral-300 dark:border-neutral-700 hover:text-heading hover:border-heading'
                 }`}
               >
-                {year}
+                {year} ({yearCounts[year]})
               </Link>
             ))}
           </div>
@@ -75,7 +81,7 @@ export default function BooksPageContent() {
               <Link
                 key={tag}
                 href={`/blog/tag/${tag}`}
-                className="font-serif text-sm text-neutral-600 dark:text-neutral-500 hover:text-heading transition-colors"
+                className="font-serif text-sm text-neutral-600 dark:text-neutral-400 hover:text-heading transition-colors"
               >
                 {tag}
               </Link>
@@ -121,7 +127,7 @@ export default function BooksPageContent() {
               </h2>
             </Link>
 
-            <p className="font-serif text-sm text-neutral-500 dark:text-neutral-600 mb-4 italic">
+            <p className="font-serif text-sm text-neutral-500 dark:text-neutral-400 mb-4 italic">
               by {book.author} • {book.year}
             </p>
 
@@ -135,7 +141,7 @@ export default function BooksPageContent() {
                 <Link
                   key={tag}
                   href={`/blog/tag/${tag}`}
-                  className="font-serif text-sm text-neutral-600 dark:text-neutral-500 hover:text-heading transition-colors"
+                  className="font-serif text-sm text-neutral-600 dark:text-neutral-400 hover:text-heading transition-colors"
                 >
                   {tag}
                 </Link>

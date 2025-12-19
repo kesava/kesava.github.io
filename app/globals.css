@@ -148,14 +148,14 @@ pre code {
   color: #e8e6e3;
 }
 
-.prose p:first-of-type::first-letter {
+.prose p:first-of-type:not(:has(> em:first-child)):not(:has(> i:first-child)):not(.no-dropcap)::first-letter {
   @apply float-left text-7xl font-bold mr-3 mt-1;
   font-family: var(--font-playfair), Georgia, serif;
   line-height: 0.85;
   color: #8b4513;
 }
 
-.dark .prose p:first-of-type::first-letter {
+.dark .prose p:first-of-type:not(:has(> em:first-child)):not(:has(> i:first-child)):not(.no-dropcap)::first-letter {
   color: #d4a574;
 }
 
@@ -333,7 +333,7 @@ pre code {
   }
 
   /* Adjust drop cap for column layout */
-  .prose-columns p:first-of-type::first-letter {
+  .prose-columns p:first-of-type:not(:has(> em:first-child)):not(:has(> i:first-child)):not(.no-dropcap)::first-letter {
     @apply float-left text-6xl font-bold mr-2 mt-1;
     line-height: 0.8;
   }

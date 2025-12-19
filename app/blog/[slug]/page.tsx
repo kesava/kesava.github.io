@@ -95,6 +95,8 @@ export default async function BlogPost({
     const book = getAllBooks().find(b => b.slug === slug);
     if (book) {
       bookData = book;
+      // Override the author with the book's author for book reviews
+      post.author = book.author;
     }
   }
 
@@ -117,7 +119,7 @@ export default async function BlogPost({
       <article>
         <Link
           href={backLink}
-          className="font-serif inline-flex items-center gap-2 mb-12 text-neutral-600 dark:text-neutral-500 hover:text-heading transition-colors text-sm"
+          className="font-serif inline-flex items-center gap-2 mb-12 text-neutral-600 dark:text-neutral-300 hover:text-heading transition-colors text-sm"
         >
           {backLinkText}
         </Link>
@@ -152,12 +154,12 @@ export default async function BlogPost({
           </h1>
 
           {isBookPost && post.author && (
-            <p className="font-serif text-xl text-neutral-600 dark:text-neutral-500 mb-6 italic">
+            <p className="font-serif text-base text-neutral-600 dark:text-neutral-300 mb-6 italic font-normal">
               by {post.author}
             </p>
           )}
 
-          <div className="font-serif text-sm text-neutral-500 dark:text-neutral-600 mb-6 uppercase tracking-wide">
+          <div className="font-serif text-sm text-neutral-500 dark:text-neutral-400 mb-6 uppercase tracking-wide">
             {new Date(post.date).toLocaleDateString('en-US', {
               year: 'numeric',
               month: 'long',
@@ -171,7 +173,7 @@ export default async function BlogPost({
                 <Link
                   key={tag}
                   href={`/blog/tag/${tag}`}
-                  className="font-serif text-sm text-neutral-600 dark:text-neutral-500 hover:text-heading transition-colors"
+                  className="font-serif text-sm text-neutral-600 dark:text-neutral-300 hover:text-heading transition-colors"
                 >
                   {tag}
                 </Link>
