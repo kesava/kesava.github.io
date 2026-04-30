@@ -86,6 +86,7 @@ export const projects: Project[] = [
     longDescription: 'A computational linguistics tool that breaks apart Telugu sandhi (compound words) by applying Sanskrit and Dravidian sandhi rules, backed by a trie-based lexicon for candidate ranking and validation.',
     technologies: ['React 19', 'TypeScript', 'Vite', 'Computational Linguistics'],
     featured: true,
+    liveUrl: 'https://kesava.github.io/telugu-sandhi',
     category: 'Telugu Language Learning',
   },
   {

@@ -644,7 +644,7 @@ As part of the 250th anniversary of American declaration of Independence, I want
     <button class="btn btn-save" onclick="saveToProject()">Save to content/posts/</button>
   </div>
 
-  <!-- Output -->
+  <!-- Output: Markdown -->
   <div class="output-section" id="outputSection">
     <div class="output-header">
       <h2>Generated Markdown</h2>
@@ -653,6 +653,18 @@ As part of the 250th anniversary of American declaration of Independence, I want
     <div class="output-path" id="outputPath"></div>
     <div class="output-box">
       <pre id="outputContent"></pre>
+    </div>
+  </div>
+
+  <!-- Output: books.ts entry -->
+  <div class="output-section" id="booksEntrySection">
+    <div class="output-header">
+      <h2>books.ts Entry</h2>
+      <button class="btn btn-secondary" onclick="copyBooksEntry()" style="padding: 6px 16px; font-size: 0.9rem;">Copy</button>
+    </div>
+    <div class="output-path">Add to the top of the books array in lib/books.ts</div>
+    <div class="output-box">
+      <pre id="booksEntryContent"></pre>
     </div>
   </div>
 </div>
@@ -760,6 +772,7 @@ As part of the 250th anniversary of American declaration of Independence, I want
     document.getElementById('parseStatus').classList.remove('visible');
     document.getElementById('parsedPanel').classList.remove('visible');
     document.getElementById('outputSection').classList.remove('visible');
+    document.getElementById('booksEntrySection').classList.remove('visible');
     selectedTags.clear();
     document.querySelectorAll('.tag-chip.active').forEach(c => c.classList.remove('active'));
     updateTagDisplay();
@@ -854,16 +867,46 @@ As part of the 250th anniversary of American declaration of Independence, I want
     if (!md) return;
 
     const title = document.getElementById('bookTitle').value.trim();
+    const author = document.getElementById('authorName').value.trim();
+    const date = document.getElementById('postDate').value;
+    const excerpt = document.getElementById('excerpt').value.trim();
+    const recommended = document.getElementById('recommended').checked;
     const slug = titleToSlug(title);
+    const year = date.split('-')[0];
+    const allTags = ['books', ...selectedTags];
+
+    // Generate an id from the slug (short version)
+    const words = slug.split('-');
+    const id = words.length <= 3 ? slug : words.slice(0, 3).join('-');
+
+    // Build books.ts entry
+    let entry = '  {\n';
+    entry += "    id: '" + id + "',\n";
+    entry += "    title: '" + title.replace(/'/g, "\\'") + "',\n";
+    entry += "    author: '" + author.replace(/'/g, "\\'") + "',\n";
+    entry += "    description: '" + excerpt.replace(/'/g, "\\'") + "',\n";
+    entry += "    tags: ['" + allTags.join("', '") + "'],\n";
+    entry += "    slug: '" + slug + "',\n";
+    entry += "    year: '" + year + "',\n";
+    if (recommended) {
+      entry += '    featured: true,\n';
+      entry += "    recommendationLevel: 'recommended',\n";
+    }
+    entry += '  },';
 
     document.getElementById('outputContent').textContent = md;
     document.getElementById('outputFilename').textContent = slug + '.md';
     document.getElementById('outputPath').textContent = 'mynewblog/content/posts/' + slug + '.md';
     document.getElementById('outputSection').classList.add('visible');
+
+    document.getElementById('booksEntryContent').textContent = entry;
+    document.getElementById('booksEntrySection').classList.add('visible');
+
     document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     window._generatedMd = md;
     window._generatedSlug = slug;
+    window._generatedBooksEntry = entry;
   }
 
   function copyToClipboard() {
@@ -899,6 +942,13 @@ As part of the 250th anniversary of American declaration of Independence, I want
 
     navigator.clipboard.writeText(cmd).then(() => {
       showToast('Shell command copied — paste into terminal to save the file');
+    });
+  }
+
+  function copyBooksEntry() {
+    if (!window._generatedBooksEntry) return;
+    navigator.clipboard.writeText(window._generatedBooksEntry).then(() => {
+      showToast('books.ts entry copied to clipboard');
     });
   }
 
