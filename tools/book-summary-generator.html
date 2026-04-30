@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Summary Generator</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lora:wght@400;500;600&family=Crimson+Text:wght@400;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #fffef9;
+    --fg: #262626;
+    --heading: #0a0a0a;
+    --secondary: #525252;
+    --accent: #8b4513;
+    --accent-light: #d4a574;
+    --border: #e5e0d5;
+    --input-bg: #faf9f6;
+    --tag-bg: #f5f0e8;
+    --tag-active: #8b4513;
+    --success: #2d6a4f;
+    --paste-bg: #f9f7f2;
+    --paste-border: #d4a574;
+  }
+
+  body {
+    font-family: 'Lora', Georgia, serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.7;
+    font-size: 17px;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: var(--heading);
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  .subtitle {
+    color: var(--secondary);
+    font-size: 1rem;
+    margin-bottom: 40px;
+  }
+
+  .step-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--accent);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.85rem;
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .form-group {
+    margin-bottom: 24px;
+  }
+
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--heading);
+    font-size: 0.95rem;
+  }
+
+  label .hint {
+    font-weight: 400;
+    color: var(--secondary);
+    font-size: 0.85rem;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    font-family: 'Lora', Georgia, serif;
+    font-size: 1rem;
+    background: var(--input-bg);
+    color: var(--fg);
+    transition: border-color 0.2s;
+  }
+
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+  }
+
+  /* Paste zone */
+  .paste-zone {
+    position: relative;
+    background: var(--paste-bg);
+    border: 2px dashed var(--paste-border);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 32px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .paste-zone.drag-over {
+    border-color: var(--accent);
+    background: #f5efe5;
+  }
+
+  .paste-zone textarea {
+    min-height: 220px;
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    resize: vertical;
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+
+  .paste-zone textarea:focus {
+    box-shadow: none;
+  }
+
+  .paste-zone .hint-text {
+    color: var(--secondary);
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+
+  .parse-btn-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 14px;
+    align-items: center;
+  }
+
+  .parse-status {
+    font-size: 0.9rem;
+    color: var(--success);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .parse-status.visible { opacity: 1; }
+
+  /* Parsed fields panel */
+  .parsed-panel {
+    display: none;
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 28px;
+    margin-bottom: 32px;
+    box-shadow: 0 2px 12px rgba(139, 69, 19, 0.06);
+  }
+
+  .parsed-panel.visible { display: block; }
+
+  .parsed-panel .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .parsed-panel .panel-header h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--heading);
+  }
+
+  .btn-clear {
+    background: none;
+    border: none;
+    color: var(--secondary);
+    font-family: 'Lora', serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .btn-clear:hover { color: var(--accent); }
+
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .row-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 20px;
+    align-items: end;
+  }
+
+  .slug-preview {
+    font-family: 'Crimson Text', monospace;
+    color: var(--secondary);
+    font-size: 0.9rem;
+    margin-top: 4px;
+  }
+
+  .slug-preview code {
+    background: var(--tag-bg);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  .tag-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .tag-chip {
+    padding: 5px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    background: var(--input-bg);
+    cursor: pointer;
+    font-family: 'Lora', serif;
+    font-size: 0.85rem;
+    color: var(--secondary);
+    transition: all 0.2s;
+    user-select: none;
+  }
+
+  .tag-chip:hover {
+    border-color: var(--accent-light);
+    color: var(--accent);
+  }
+
+  .tag-chip.active {
+    background: var(--tag-active);
+    border-color: var(--tag-active);
+    color: #fff;
+  }
+
+  .tags-category-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    color: var(--secondary);
+    margin: 8px 0 10px;
+    font-weight: 400;
+  }
+
+  .custom-tag-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .custom-tag-row input { flex: 1; }
+
+  .btn-add-tag {
+    padding: 8px 18px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Lora', serif;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  .btn-add-tag:hover { opacity: 0.85; }
+
+  .checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  .checkbox-row input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+  }
+
+  textarea#summaryContent {
+    min-height: 300px;
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    resize: vertical;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1.5px solid var(--border);
+    margin: 36px 0;
+  }
+
+  .actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .btn-primary:hover { background: #6d360f; }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+  }
+
+  .btn-secondary:hover { background: rgba(139, 69, 19, 0.06); }
+
+  .btn-success {
+    background: var(--success);
+    color: #fff;
+  }
+
+  .btn-success:hover { opacity: 0.85; }
+
+  .btn-save {
+    background: #1a5276;
+    color: #fff;
+  }
+
+  .btn-save:hover { opacity: 0.85; }
+
+  .output-section {
+    display: none;
+    margin-top: 36px;
+  }
+
+  .output-section.visible { display: block; }
+
+  .output-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .output-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+  }
+
+  .output-filename {
+    font-family: 'Crimson Text', monospace;
+    font-size: 0.95rem;
+    color: var(--secondary);
+    background: var(--tag-bg);
+    padding: 4px 12px;
+    border-radius: 4px;
+  }
+
+  .output-path {
+    width: 100%;
+    font-family: 'Crimson Text', monospace;
+    font-size: 0.85rem;
+    color: var(--secondary);
+    margin-bottom: 12px;
+  }
+
+  .output-box {
+    position: relative;
+    background: linear-gradient(135deg, #faf9f6 0%, #f5f4f1 100%);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    overflow-x: auto;
+  }
+
+  .output-box pre {
+    font-family: 'Crimson Text', monospace;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: var(--fg);
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    box-shadow: none;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--success);
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-family: 'Lora', serif;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease;
+    z-index: 100;
+  }
+
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  .selected-tags {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: var(--accent);
+  }
+
+  .selected-tags span {
+    display: inline-block;
+    background: var(--tag-bg);
+    padding: 2px 10px;
+    border-radius: 12px;
+    margin: 2px 4px 2px 0;
+  }
+
+  .format-row {
+    display: flex;
+    gap: 16px;
+    margin-top: 4px;
+  }
+
+  .format-row label {
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+  }
+
+  @media (max-width: 640px) {
+    .row, .row-3 { grid-template-columns: 1fr; }
+    h1 { font-size: 1.7rem; }
+    .container { padding: 24px 16px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Book Summary Generator</h1>
+  <p class="subtitle">Paste from Craft, tweak the metadata, and download a blog-ready markdown file.</p>
+
+  <!-- STEP 1: Paste from Craft -->
+  <div class="step-label"><span class="step-num">1</span> Paste from Craft</div>
+
+  <div class="paste-zone" id="pasteZone">
+    <p class="hint-text">
+      Copy the entire document from Craft and paste here. The title (first line) and author ("By ..." line) will be extracted automatically.
+    </p>
+    <textarea id="craftPaste" placeholder="The Founding Brothers
+By Joseph Ellis
+
+As part of the 250th anniversary of American declaration of Independence, I wanted to read a few books about the founding moments...
+
+- Key point one
+- Key point two
+..."></textarea>
+    <div class="parse-btn-row">
+      <button class="btn btn-primary" onclick="parseCraft()">Parse</button>
+      <span class="parse-status" id="parseStatus"></span>
+    </div>
+  </div>
+
+  <!-- STEP 2: Review & edit parsed fields -->
+  <div class="parsed-panel" id="parsedPanel">
+    <div class="panel-header">
+      <div class="step-label" style="margin-bottom:0;"><span class="step-num">2</span> Review parsed fields</div>
+      <button class="btn-clear" onclick="clearAll()">Clear all</button>
+    </div>
+
+    <div class="row">
+      <div class="form-group">
+        <label for="bookTitle">Book Title</label>
+        <input type="text" id="bookTitle" placeholder="e.g. Rivers of Powers" oninput="updateSlug()">
+        <div class="slug-preview" id="slugPreview"></div>
+      </div>
+      <div class="form-group">
+        <label for="authorName">Author</label>
+        <input type="text" id="authorName" placeholder="e.g. Laurence C. Smith">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="summaryContent">Content <span class="hint">(edit as needed)</span></label>
+      <textarea id="summaryContent"></textarea>
+    </div>
+  </div>
+
+  <!-- STEP 3: Metadata -->
+  <div class="step-label"><span class="step-num">3</span> Add metadata</div>
+
+  <div class="row-3">
+    <div class="form-group">
+      <label for="postDate">Date</label>
+      <input type="date" id="postDate">
+    </div>
+    <div class="form-group">
+      <label for="excerpt">Excerpt <span class="hint">(one sentence, &lt;150 chars)</span></label>
+      <input type="text" id="excerpt" placeholder="Brief description of what the book covers" maxlength="150">
+    </div>
+    <div class="form-group">
+      <label>&nbsp;</label>
+      <div class="checkbox-row">
+        <input type="checkbox" id="recommended">
+        <label for="recommended" style="margin:0; font-weight:400;">Recommended</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tags -->
+  <div class="form-group">
+    <label>Tags <span class="hint">("books" is always included)</span></label>
+
+    <p class="tags-category-label">Subject</p>
+    <div class="tag-grid" id="subjectTags">
+      <span class="tag-chip" onclick="toggleTag(this)">biography</span>
+      <span class="tag-chip" onclick="toggleTag(this)">history</span>
+      <span class="tag-chip" onclick="toggleTag(this)">science</span>
+      <span class="tag-chip" onclick="toggleTag(this)">technology</span>
+      <span class="tag-chip" onclick="toggleTag(this)">politics</span>
+      <span class="tag-chip" onclick="toggleTag(this)">economics</span>
+      <span class="tag-chip" onclick="toggleTag(this)">philosophy</span>
+      <span class="tag-chip" onclick="toggleTag(this)">medicine</span>
+      <span class="tag-chip" onclick="toggleTag(this)">business</span>
+      <span class="tag-chip" onclick="toggleTag(this)">memoir</span>
+      <span class="tag-chip" onclick="toggleTag(this)">fiction</span>
+      <span class="tag-chip" onclick="toggleTag(this)">engineering</span>
+      <span class="tag-chip" onclick="toggleTag(this)">architecture</span>
+    </div>
+
+    <p class="tags-category-label">Region</p>
+    <div class="tag-grid" id="regionTags">
+      <span class="tag-chip" onclick="toggleTag(this)">india</span>
+      <span class="tag-chip" onclick="toggleTag(this)">china</span>
+      <span class="tag-chip" onclick="toggleTag(this)">america</span>
+      <span class="tag-chip" onclick="toggleTag(this)">europe</span>
+      <span class="tag-chip" onclick="toggleTag(this)">britain</span>
+      <span class="tag-chip" onclick="toggleTag(this)">france</span>
+      <span class="tag-chip" onclick="toggleTag(this)">russia</span>
+      <span class="tag-chip" onclick="toggleTag(this)">japan</span>
+      <span class="tag-chip" onclick="toggleTag(this)">germany</span>
+      <span class="tag-chip" onclick="toggleTag(this)">asia</span>
+    </div>
+
+    <p class="tags-category-label">Topic</p>
+    <div class="tag-grid" id="topicTags">
+      <span class="tag-chip" onclick="toggleTag(this)">leadership</span>
+      <span class="tag-chip" onclick="toggleTag(this)">innovation</span>
+      <span class="tag-chip" onclick="toggleTag(this)">war</span>
+      <span class="tag-chip" onclick="toggleTag(this)">democracy</span>
+      <span class="tag-chip" onclick="toggleTag(this)">colonialism</span>
+      <span class="tag-chip" onclick="toggleTag(this)">linguistics</span>
+      <span class="tag-chip" onclick="toggleTag(this)">archaeology</span>
+      <span class="tag-chip" onclick="toggleTag(this)">neuroscience</span>
+      <span class="tag-chip" onclick="toggleTag(this)">religion</span>
+      <span class="tag-chip" onclick="toggleTag(this)">art</span>
+      <span class="tag-chip" onclick="toggleTag(this)">food</span>
+      <span class="tag-chip" onclick="toggleTag(this)">rivers</span>
+      <span class="tag-chip" onclick="toggleTag(this)">geography</span>
+      <span class="tag-chip" onclick="toggleTag(this)">environment</span>
+      <span class="tag-chip" onclick="toggleTag(this)">cinema</span>
+      <span class="tag-chip" onclick="toggleTag(this)">free-speech</span>
+      <span class="tag-chip" onclick="toggleTag(this)">tribute</span>
+      <span class="tag-chip" onclick="toggleTag(this)">inspiring</span>
+      <span class="tag-chip" onclick="toggleTag(this)">civil-rights</span>
+      <span class="tag-chip" onclick="toggleTag(this)">mythology</span>
+      <span class="tag-chip" onclick="toggleTag(this)">agriculture</span>
+    </div>
+
+    <div class="custom-tag-row">
+      <input type="text" id="customTag" placeholder="Add custom tag..." onkeydown="if(event.key==='Enter'){addCustomTag(); event.preventDefault();}">
+      <button class="btn-add-tag" onclick="addCustomTag()">Add</button>
+    </div>
+
+    <div class="selected-tags" id="selectedTagsDisplay"></div>
+  </div>
+
+  <!-- Format -->
+  <div class="form-group">
+    <label>Format</label>
+    <div class="format-row">
+      <label><input type="radio" name="format" value="summary" checked style="accent-color: var(--accent);"> Summary (bullet points)</label>
+      <label><input type="radio" name="format" value="review" style="accent-color: var(--accent);"> Review (essay)</label>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- STEP 4: Generate -->
+  <div class="step-label"><span class="step-num">4</span> Generate</div>
+
+  <div class="actions">
+    <button class="btn btn-primary" onclick="generate()">Generate Markdown</button>
+    <button class="btn btn-secondary" onclick="copyToClipboard()">Copy to Clipboard</button>
+    <button class="btn btn-success" onclick="downloadFile()">Download .md File</button>
+    <button class="btn btn-save" onclick="saveToProject()">Save to content/posts/</button>
+  </div>
+
+  <!-- Output -->
+  <div class="output-section" id="outputSection">
+    <div class="output-header">
+      <h2>Generated Markdown</h2>
+      <span class="output-filename" id="outputFilename"></span>
+    </div>
+    <div class="output-path" id="outputPath"></div>
+    <div class="output-box">
+      <pre id="outputContent"></pre>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const selectedTags = new Set();
+
+  document.getElementById('postDate').valueAsDate = new Date();
+
+  function titleToSlug(title) {
+    return title
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
+  }
+
+  function updateSlug() {
+    const title = document.getElementById('bookTitle').value.trim();
+    const preview = document.getElementById('slugPreview');
+    if (title) {
+      const slug = titleToSlug(title);
+      preview.innerHTML = 'Filename: <code>' + slug + '.md</code>';
+    } else {
+      preview.innerHTML = '';
+    }
+  }
+
+  function parseCraft() {
+    const raw = document.getElementById('craftPaste').value.trim();
+    if (!raw) {
+      showToast('Paste your Craft document first');
+      return;
+    }
+
+    const lines = raw.split('\n');
+    let title = '';
+    let author = '';
+    let contentStart = 0;
+
+    // First non-empty line is the title
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].trim()) {
+        title = lines[i].trim();
+        // Remove leading markdown heading markers
+        title = title.replace(/^#+\s*/, '');
+        contentStart = i + 1;
+        break;
+      }
+    }
+
+    // Look for author line in the next few lines
+    for (let i = contentStart; i < Math.min(contentStart + 5, lines.length); i++) {
+      const line = lines[i].trim();
+      const authorMatch = line.match(/^(?:by|By|BY)\s+(.+)/);
+      if (authorMatch) {
+        author = authorMatch[1].trim();
+        // Remove trailing punctuation artifacts
+        author = author.replace(/[·\-–—]\s*$/, '').trim();
+        contentStart = i + 1;
+        break;
+      }
+    }
+
+    // Everything after is content, skip leading blank lines
+    let contentLines = lines.slice(contentStart);
+    while (contentLines.length && !contentLines[0].trim()) {
+      contentLines.shift();
+    }
+    const content = contentLines.join('\n').trimEnd();
+
+    // Fill in the fields
+    document.getElementById('bookTitle').value = title;
+    document.getElementById('authorName').value = author;
+    document.getElementById('summaryContent').value = content;
+    updateSlug();
+
+    // Show the parsed panel
+    document.getElementById('parsedPanel').classList.add('visible');
+
+    // Status
+    const parts = [];
+    if (title) parts.push('title');
+    if (author) parts.push('author');
+    parts.push(contentLines.filter(l => l.trim()).length + ' lines of content');
+
+    const status = document.getElementById('parseStatus');
+    status.textContent = 'Extracted: ' + parts.join(', ');
+    status.classList.add('visible');
+
+    showToast('Parsed successfully — review the fields below');
+  }
+
+  function clearAll() {
+    document.getElementById('craftPaste').value = '';
+    document.getElementById('bookTitle').value = '';
+    document.getElementById('authorName').value = '';
+    document.getElementById('summaryContent').value = '';
+    document.getElementById('excerpt').value = '';
+    document.getElementById('recommended').checked = false;
+    document.getElementById('slugPreview').innerHTML = '';
+    document.getElementById('parseStatus').classList.remove('visible');
+    document.getElementById('parsedPanel').classList.remove('visible');
+    document.getElementById('outputSection').classList.remove('visible');
+    selectedTags.clear();
+    document.querySelectorAll('.tag-chip.active').forEach(c => c.classList.remove('active'));
+    updateTagDisplay();
+    window._generatedMd = null;
+    window._generatedSlug = null;
+  }
+
+  function toggleTag(chip) {
+    const tag = chip.textContent.trim();
+    if (selectedTags.has(tag)) {
+      selectedTags.delete(tag);
+      chip.classList.remove('active');
+    } else {
+      selectedTags.add(tag);
+      chip.classList.add('active');
+    }
+    updateTagDisplay();
+  }
+
+  function addCustomTag() {
+    const input = document.getElementById('customTag');
+    const raw = input.value.trim().toLowerCase().replace(/\s+/g, '-');
+    if (!raw) return;
+    if (selectedTags.has(raw)) { input.value = ''; return; }
+
+    selectedTags.add(raw);
+
+    const existing = document.querySelectorAll('.tag-chip');
+    let found = false;
+    existing.forEach(chip => {
+      if (chip.textContent.trim() === raw) {
+        chip.classList.add('active');
+        found = true;
+      }
+    });
+
+    if (!found) {
+      const chip = document.createElement('span');
+      chip.className = 'tag-chip active';
+      chip.textContent = raw;
+      chip.onclick = function() { toggleTag(this); };
+      document.getElementById('topicTags').appendChild(chip);
+    }
+
+    input.value = '';
+    updateTagDisplay();
+  }
+
+  function updateTagDisplay() {
+    const display = document.getElementById('selectedTagsDisplay');
+    const allTags = ['books', ...selectedTags];
+    display.innerHTML = 'Selected: ' + allTags.map(t => '<span>' + t + '</span>').join('');
+  }
+
+  updateTagDisplay();
+
+  function buildMarkdown() {
+    const title = document.getElementById('bookTitle').value.trim();
+    const author = document.getElementById('authorName').value.trim();
+    const date = document.getElementById('postDate').value;
+    const excerpt = document.getElementById('excerpt').value.trim();
+    const recommended = document.getElementById('recommended').checked;
+    const content = document.getElementById('summaryContent').value;
+
+    if (!title) { showToast('Please enter a book title'); return null; }
+    if (!author) { showToast('Please enter the author name'); return null; }
+    if (!excerpt) { showToast('Please enter an excerpt'); return null; }
+    if (!content.trim()) { showToast('Please enter the summary content'); return null; }
+
+    const allTags = ['books', ...selectedTags];
+    const tagsStr = '["' + allTags.join('", "') + '"]';
+
+    let md = '---\n';
+    md += 'title: "' + title.replace(/"/g, '\\"') + '"\n';
+    md += 'date: "' + date + '"\n';
+    md += 'excerpt: "' + excerpt.replace(/"/g, '\\"') + '"\n';
+    md += 'tags: ' + tagsStr + '\n';
+    md += 'author: "Kesava"\n';
+    if (recommended) {
+      md += 'recommended: true\n';
+    }
+    md += '---\n';
+    md += '# ' + title + '\n\n';
+    md += 'By ' + author + '\n\n';
+    md += content.trim() + '\n';
+
+    return md;
+  }
+
+  function generate() {
+    const md = buildMarkdown();
+    if (!md) return;
+
+    const title = document.getElementById('bookTitle').value.trim();
+    const slug = titleToSlug(title);
+
+    document.getElementById('outputContent').textContent = md;
+    document.getElementById('outputFilename').textContent = slug + '.md';
+    document.getElementById('outputPath').textContent = 'mynewblog/content/posts/' + slug + '.md';
+    document.getElementById('outputSection').classList.add('visible');
+    document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    window._generatedMd = md;
+    window._generatedSlug = slug;
+  }
+
+  function copyToClipboard() {
+    if (!window._generatedMd) { generate(); }
+    if (!window._generatedMd) return;
+    navigator.clipboard.writeText(window._generatedMd).then(() => {
+      showToast('Copied to clipboard');
+    });
+  }
+
+  function downloadFile() {
+    if (!window._generatedMd) { generate(); }
+    if (!window._generatedMd) return;
+
+    const blob = new Blob([window._generatedMd], { type: 'text/markdown;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = window._generatedSlug + '.md';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('Downloaded ' + window._generatedSlug + '.md');
+  }
+
+  function saveToProject() {
+    if (!window._generatedMd) { generate(); }
+    if (!window._generatedMd) return;
+
+    const filename = window._generatedSlug + '.md';
+    const cmd = 'cat << \'ENDOFFILE\' > mynewblog/content/posts/' + filename + '\n' + window._generatedMd + '\nENDOFFILE';
+
+    navigator.clipboard.writeText(cmd).then(() => {
+      showToast('Shell command copied — paste into terminal to save the file');
+    });
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2800);
+  }
+
+  // Auto-parse on paste into the craft textarea
+  document.getElementById('craftPaste').addEventListener('paste', function() {
+    setTimeout(parseCraft, 100);
+  });
+</script>
+</body>
+</html>
