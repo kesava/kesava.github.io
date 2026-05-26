@@ -24,7 +24,7 @@ export default function BooksPageContent({ bookDates }: Props) {
 
   const selectedYear = searchParams.get('year');
   const books = selectedYear
-    ? allBooks.filter((book) => (book.readDate?.getFullYear() ?? Number(book.year)) === Number(selectedYear))
+    ? allBooks.filter((book) => book.yearNum === Number(selectedYear))
     : allBooks;
 
   return (

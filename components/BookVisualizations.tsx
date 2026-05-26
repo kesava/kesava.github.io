@@ -4,14 +4,19 @@ import Link from 'next/link';
 import { Book } from '@/lib/books';
 
 export interface BookWithDate extends Book {
+  yearNum: number | null;
   readDate: Date | null;
 }
 
 export function attachDates(books: Book[], dates: Record<string, string>): BookWithDate[] {
   return books.map((b) => {
-    const raw = dates[b.slug] || (b.year ? `${b.year}-06-15` : null);
-    const d = raw ? new Date(raw) : null;
-    return { ...b, readDate: d && !isNaN(d.getTime()) ? d : null };
+    const yearNum = b.year ? Number(b.year) : null;
+    const raw = dates[b.slug];
+    const postDate = raw ? new Date(raw) : null;
+    const postValid = postDate && !isNaN(postDate.getTime());
+    const readDate =
+      postValid && yearNum && postDate.getFullYear() === yearNum ? postDate : null;
+    return { ...b, yearNum, readDate };
   });
 }
 
@@ -30,8 +35,7 @@ const MONTHS = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
 function getYears(books: BookWithDate[]): number[] {
   const ys = new Set<number>();
   books.forEach((b) => {
-    if (b.readDate) ys.add(b.readDate.getFullYear());
-    else if (b.year) ys.add(Number(b.year));
+    if (b.yearNum) ys.add(b.yearNum);
   });
   return Array.from(ys).sort();
 }
@@ -65,7 +69,9 @@ export function WeeklySparkline({ books }: { books: BookWithDate[] }) {
     <div className="mb-12">
       <div className="flex items-baseline justify-between mb-2">
         <span className="font-serif text-sm text-neutral-500 dark:text-neutral-400">Reading pace</span>
-        <span className="font-serif text-sm text-neutral-500 dark:text-neutral-400">{books.length} books</span>
+        <span className="font-serif text-sm text-neutral-500 dark:text-neutral-400">
+          {dated.length} of {books.length} books with known dates
+        </span>
       </div>
       <svg viewBox={`0 0 ${W} ${H + 14}`} className="w-full text-neutral-700 dark:text-neutral-300" preserveAspectRatio="none">
         {counts.map((c, i) => {
@@ -108,7 +114,7 @@ export function YearSparkbar({
   selectedYear: string | null;
 }) {
   const years = getYears(books);
-  const counts = years.map((y) => books.filter((b) => (b.readDate?.getFullYear() ?? Number(b.year)) === y).length);
+  const counts = years.map((y) => books.filter((b) => b.yearNum === y).length);
   const max = Math.max(...counts, 1);
   const total = books.length;
 
@@ -354,7 +360,7 @@ const BORING_TAGS = new Set(['books']);
 function computeTopicStats(books: BookWithDate[]): TopicStat[] {
   const map = new Map<string, TopicStat>();
   books.forEach((b) => {
-    const y = b.readDate?.getFullYear() ?? Number(b.year);
+    const y = b.yearNum;
     const isRec = b.recommendationLevel === 'recommended' || b.recommendationLevel === 'highly_recommended';
     b.tags.forEach((t) => {
       if (BORING_TAGS.has(t)) return;
