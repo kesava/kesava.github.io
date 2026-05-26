@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep \":1$\")",
+      "Bash(node -e ' *)",
+      "Bash(npx tsc *)",
+      "Read(//tmp/**)",
+      "Bash(node_modules/.bin/tsc --noEmit)"
+    ]
+  }
+}

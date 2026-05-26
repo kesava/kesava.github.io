@@ -2,29 +2,34 @@
 
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { getAllBooks, getAllBookTags, getAllBookYears } from '@/lib/books';
+import { getAllBooks } from '@/lib/books';
+import {
+  attachDates,
+  WeeklySparkline,
+  YearSparkbar,
+  MonthlyMultiples,
+  CumulativePace,
+  TopicsFrequencyList,
+  TopicHeatmap,
+} from './BookVisualizations';
 
-export default function BooksPageContent() {
+interface Props {
+  bookDates: Record<string, string>;
+}
+
+export default function BooksPageContent({ bookDates }: Props) {
   const searchParams = useSearchParams();
-  const allBooks = getAllBooks();
-  const tags = getAllBookTags();
-  const years = getAllBookYears();
+  const allBooksRaw = getAllBooks();
+  const allBooks = attachDates(allBooksRaw, bookDates);
 
-  // Filter books by year if specified
   const selectedYear = searchParams.get('year');
   const books = selectedYear
-    ? allBooks.filter((book) => book.year === selectedYear)
+    ? allBooks.filter((book) => (book.readDate?.getFullYear() ?? Number(book.year)) === Number(selectedYear))
     : allBooks;
-
-  // Calculate book counts per year
-  const yearCounts = years.reduce((acc, year) => {
-    acc[year] = allBooks.filter((book) => book.year === year).length;
-    return acc;
-  }, {} as Record<string, number>);
 
   return (
     <div className="container mx-auto px-6 py-20 max-w-2xl">
-      <header className="mb-20 text-center border-b border-neutral-200 dark:border-neutral-800 pb-12">
+      <header className="mb-16 text-center border-b border-neutral-200 dark:border-neutral-800 pb-12">
         <h1 className="font-display text-6xl font-bold mb-6 text-heading">
           Book Reviews
         </h1>
@@ -40,58 +45,30 @@ export default function BooksPageContent() {
         )}
       </header>
 
-      {/* Years */}
-      {years.length > 0 && (
-        <div className="mb-16">
-          <h2 className="font-display text-2xl font-bold mb-6 text-heading">Year Read</h2>
-          <div className="flex flex-wrap gap-4">
-            <Link
-              href="/books"
-              className={`font-serif text-sm transition-colors px-4 py-2 border rounded-md ${
-                !selectedYear
-                  ? 'bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 border-neutral-900 dark:border-neutral-100'
-                  : 'text-neutral-600 dark:text-neutral-400 border-neutral-300 dark:border-neutral-700 hover:text-heading hover:border-heading'
-              }`}
-            >
-              All ({allBooks.length})
-            </Link>
-            {years.map((year) => (
-              <Link
-                key={year}
-                href={`/books?year=${year}`}
-                className={`font-serif text-sm transition-colors px-4 py-2 border rounded-md ${
-                  selectedYear === year
-                    ? 'bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 border-neutral-900 dark:border-neutral-100'
-                    : 'text-neutral-600 dark:text-neutral-400 border-neutral-300 dark:border-neutral-700 hover:text-heading hover:border-heading'
-                }`}
-              >
-                {year} ({yearCounts[year]})
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
+      {/* A — Weekly sparkline: the pulse */}
+      <WeeklySparkline books={allBooks} />
 
-      {/* Tags */}
-      {tags.length > 0 && (
-        <div className="mb-20">
-          <h2 className="font-display text-2xl font-bold mb-6 text-heading">Topics</h2>
-          <div className="flex flex-wrap gap-4">
-            {tags.map((tag) => (
-              <Link
-                key={tag}
-                href={`/blog/tag/${tag}`}
-                className="font-serif text-sm text-neutral-600 dark:text-neutral-400 hover:text-heading transition-colors"
-              >
-                {tag}
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
+      {/* Level 1 — Year sparkbar (filter) */}
+      <YearSparkbar books={allBooks} selectedYear={selectedYear} />
+
+      {/* Reading cadence */}
+      <section className="mb-16">
+        <h2 className="font-display text-2xl font-bold mb-6 text-heading">Reading cadence</h2>
+        <MonthlyMultiples books={allBooks} />
+        <CumulativePace books={allBooks} />
+      </section>
+
+      {/* Level 2 — Topics frequency list */}
+      <TopicsFrequencyList books={allBooks} />
+
+      {/* Level 3 — Topic × Year heatmap */}
+      <TopicHeatmap books={allBooks} />
 
       {/* Books List */}
       <div className="space-y-16">
+        <h2 className="font-display text-2xl font-bold text-heading">
+          {selectedYear ? `Books from ${selectedYear}` : 'All books'}
+        </h2>
         {books.map((book) => (
           <article
             key={book.id}
