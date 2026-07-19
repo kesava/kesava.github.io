@@ -186,6 +186,40 @@ export default async function BlogPost({
           className={`prose prose-lg font-serif ${isTranslation ? 'prose-translation' : 'prose-columns'}`}
           dangerouslySetInnerHTML={{ __html: contentHtml }}
         />
+
+        {isTranslation && (
+          <aside className="mt-20 pt-10 border-t border-neutral-200 dark:border-neutral-800">
+            <h2 className="font-display text-sm uppercase tracking-widest text-neutral-500 dark:text-neutral-400 mb-6 text-center">
+              Explore the Craft
+            </h2>
+            <div className="flex flex-wrap justify-center gap-8 font-serif text-neutral-700 dark:text-neutral-300">
+              <a
+                href="https://kesava.github.io/telugu-padyam"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-accent decoration-2 underline-offset-4 hover:text-heading transition-colors"
+              >
+                Meter analyzer (padyam)
+              </a>
+              <a
+                href="https://kesava.github.io/chandhassu"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-accent decoration-2 underline-offset-4 hover:text-heading transition-colors"
+              >
+                Sanskrit prosody
+              </a>
+              <a
+                href="https://kesava.github.io/telugu-sandhi"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-accent decoration-2 underline-offset-4 hover:text-heading transition-colors"
+              >
+                Sandhi splitter
+              </a>
+            </div>
+          </aside>
+        )}
       </article>
     </div>
   );
