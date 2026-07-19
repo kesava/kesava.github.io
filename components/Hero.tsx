@@ -8,7 +8,7 @@ export default function Hero() {
           Kesava Mallela
         </h1>
         <p className="font-serif text-xl md:text-2xl text-neutral-800 dark:text-neutral-400 mb-12 leading-relaxed max-w-2xl mx-auto">
-          Staff Software Engineer at Apple. Essays on books, Telugu poetry translations, and the craft of software engineering.
+          Staff Engineer. Essays on books, Telugu poetry translations, and the craft of software engineering.
         </p>
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
           <Link

@@ -12,12 +12,11 @@ export default function AboutPage() {
       <div className="space-y-16">
         {/* Introduction */}
         <section className="border-b border-neutral-200 dark:border-neutral-800 pb-16">
-          <h2 className="font-display text-3xl font-bold mb-6 text-heading">Staff Software Engineer at Apple</h2>
+          <h2 className="font-display text-3xl font-bold mb-6 text-heading">Staff Engineer</h2>
           <div className="space-y-6 font-serif text-neutral-800 dark:text-neutral-300 text-lg leading-relaxed">
             <p>
-              I&apos;m a Staff Software Engineer at Apple with over 11 years building and architecting
-              large-scale AppleCare properties, including discussions.apple.com, developer.apple.com/forums,
-              support.apple.com, and getsupport.apple.com. I bridge the gap between design and engineering,
+              I&apos;m a Staff Engineer with over 11 years building and architecting
+              large-scale web properties. I bridge the gap between design and engineering,
               creating experiences that are both technically sound and delightful to use.
             </p>
             <p>
@@ -170,8 +169,8 @@ export default function AboutPage() {
           <h2 className="font-display text-3xl font-bold mb-6 text-heading">What I Do</h2>
           <div className="space-y-6 font-serif text-neutral-800 dark:text-neutral-300 text-lg leading-relaxed">
             <p>
-              At Apple, I architect and build large-scale web applications that serve millions of users
-              across AppleCare support communities, developer forums, and knowledge bases. I lead engineering
+              In my day job, I architect and build large-scale web applications that serve millions of users
+              across support communities, developer forums, and knowledge bases. I lead engineering
               teams, build developer tooling like Babel plugins and rich text editor parsers, and ensure
               seamless collaboration across product, design, and engineering.
             </p>
