@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Three Important Pākas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Serif+Telugu:wght@400;500;600&family=Noto+Serif+Devanagari:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f7f2e6;
+    --paper-2:#fdfaf1;
+    --ink:#2a231b;
+    --ink-soft:#5c5142;
+    --gold:#b28a3d;
+    --rule:#d9cdb2;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"EB Garamond",Georgia,serif;
+    font-size:17px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  .wrap{
+    max-width:480px;
+    margin:0 auto;
+    padding:0 16px 40px;
+  }
+  /* Latin diacritic + script fallbacks */
+  .te{font-family:"Noto Serif Telugu","EB Garamond",serif;}
+  .dev{font-family:"Noto Serif Devanagari","EB Garamond",serif;}
+
+  /* ---------- Masthead ---------- */
+  .mast{
+    text-align:center;
+    padding:34px 6px 22px;
+  }
+  .mast__orn{
+    color:var(--gold);
+    font-size:22px;
+    letter-spacing:.4em;
+    margin-bottom:10px;
+  }
+  .mast h1{
+    font-family:"Playfair Display",serif;
+    font-weight:900;
+    font-size:clamp(34px,10.5vw,46px);
+    line-height:1.02;
+    letter-spacing:.01em;
+  }
+  .mast h1 em{font-style:italic;font-weight:700}
+  .mast__sub{
+    font-size:16px;
+    color:var(--ink-soft);
+    margin-top:12px;
+    max-width:34ch;
+    margin-inline:auto;
+    line-height:1.45;
+  }
+  .mast__sub em{font-style:italic;color:var(--ink)}
+
+  /* ---------- Section eyebrow ---------- */
+  .eyebrow{
+    display:flex;align-items:center;gap:12px;
+    margin:30px 0 18px;
+  }
+  .eyebrow::before,.eyebrow::after{
+    content:"";flex:1;height:1px;
+    background:linear-gradient(90deg,transparent,var(--rule),transparent);
+  }
+  .eyebrow span{
+    font-family:"Playfair Display",serif;
+    font-weight:700;
+    font-size:12.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:#463b8a;
+    background:#e9e4d6;
+    border:1px solid var(--rule);
+    border-radius:999px;
+    padding:7px 15px;
+    text-align:center;
+    line-height:1.3;
+  }
+  .eyebrow.two span{color:#5a4a2a}
+
+  /* ---------- Card ---------- */
+  .card{
+    --accent:#4a2c6b;
+    --deep:#3a2258;
+    --tint:#efe9f4;
+    background:var(--paper-2);
+    border:1px solid var(--rule);
+    border-top:4px solid var(--accent);
+    border-radius:14px;
+    padding:18px 18px 0;
+    margin-bottom:20px;
+    box-shadow:0 1px 0 rgba(0,0,0,.03),0 10px 24px -18px rgba(60,40,20,.5);
+    overflow:hidden;
+  }
+  .card--draksa{--accent:#563586;--deep:#3d2560;--tint:#efeaf5}
+  .card--kadali{--accent:#9a6216;--deep:#7c4f12;--tint:#f5ecd7}
+  .card--narikela{--accent:#2c5433;--deep:#213f27;--tint:#e8efe6}
+
+  .card__head{margin-bottom:14px}
+  .card__num{
+    display:inline-block;
+    font-family:"Playfair Display",serif;
+    font-weight:700;
+    font-size:13px;
+    color:var(--accent);
+    border:1.5px solid var(--accent);
+    border-radius:50%;
+    width:26px;height:26px;
+    line-height:23px;
+    text-align:center;
+    margin-bottom:8px;
+  }
+  .card__title{
+    font-family:"Playfair Display",serif;
+    font-weight:700;
+    font-size:23px;
+    color:var(--deep);
+    line-height:1.15;
+  }
+  .card__title .te{font-size:.82em;font-weight:500;color:var(--accent)}
+  .card__gloss{
+    font-style:italic;
+    font-size:17px;
+    color:var(--accent);
+    margin-top:3px;
+  }
+
+  .card__def{
+    background:var(--accent);
+    color:#fff;
+    font-weight:500;
+    font-size:16px;
+    line-height:1.4;
+    text-align:center;
+    padding:13px 15px;
+    border-radius:9px;
+    margin-bottom:16px;
+  }
+
+  .fruit{
+    margin-bottom:16px;
+    padding-left:13px;
+    border-left:2px dotted var(--accent);
+  }
+  .fruit__lbl{
+    font-family:"Playfair Display",serif;
+    font-weight:700;
+    font-size:11.5px;
+    letter-spacing:.13em;
+    text-transform:uppercase;
+    color:var(--accent);
+    display:block;
+    margin-bottom:5px;
+  }
+  .fruit p{
+    font-size:15.5px;
+    line-height:1.5;
+    color:var(--ink);
+  }
+  .fruit em{font-style:italic}
+
+  .lbl{
+    font-family:"Playfair Display",serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--accent);
+    letter-spacing:.02em;
+  }
+  .card__eg{margin-bottom:10px;font-size:16px}
+  .card__eg em{font-style:italic}
+
+  .verse{
+    background:var(--tint);
+    border-left:3px solid var(--accent);
+    border-radius:0 8px 8px 0;
+    padding:13px 15px;
+    margin-bottom:12px;
+    font-size:17px;
+    line-height:1.85;
+  }
+  .verse.dev{font-size:18px;line-height:2}
+  .verse.te{font-size:16.5px;line-height:2}
+  .translit{
+    font-style:italic;
+    color:var(--ink-soft);
+    font-size:15px;
+    line-height:1.6;
+    margin-bottom:10px;
+  }
+  .card__trans{
+    font-size:16px;
+    line-height:1.55;
+    color:var(--ink);
+    margin-bottom:16px;
+  }
+  .card__trans.center{text-align:center;font-style:italic}
+  .quoteblock{
+    background:var(--tint);
+    border-radius:9px;
+    padding:16px 16px 14px;
+    margin-bottom:12px;
+    text-align:center;
+  }
+  .quoteblock p{
+    font-style:italic;
+    font-size:17px;
+    line-height:1.5;
+  }
+  .quoteblock cite{
+    display:block;
+    font-style:normal;
+    font-size:14px;
+    color:var(--ink-soft);
+    margin-top:8px;
+  }
+  .quoteblock cite em{font-style:italic}
+
+  .card__why{
+    font-family:"Playfair Display",serif;
+    font-weight:700;
+    font-size:16px;
+    color:var(--deep);
+    margin-bottom:8px;
+  }
+  .card ul{list-style:none;margin-bottom:16px}
+  .card li{
+    position:relative;
+    padding-left:18px;
+    font-size:15.5px;
+    line-height:1.45;
+    margin-bottom:7px;
+    color:var(--ink);
+  }
+  .card li::before{
+    content:"◆";
+    position:absolute;left:0;top:0;
+    color:var(--accent);
+    font-size:9px;
+    line-height:1.8;
+  }
+
+  .card__poet{
+    background:var(--tint);
+    margin:0 -18px;
+    padding:14px 18px 16px;
+    text-align:center;
+    border-top:1px solid var(--rule);
+  }
+  .card__poet .k{
+    font-size:13px;
+    letter-spacing:.03em;
+    color:var(--ink-soft);
+    display:block;
+    margin-bottom:2px;
+  }
+  .card__poet strong{
+    font-family:"Playfair Display",serif;
+    font-weight:700;
+    font-size:18px;
+    color:var(--deep);
+    letter-spacing:.02em;
+  }
+  .card__poet em{
+    display:block;
+    font-style:italic;
+    font-size:15px;
+    color:var(--accent);
+    margin-top:2px;
+  }
+
+  /* ---------- Continuum footer ---------- */
+  .continuum{
+    background:var(--paper-2);
+    border:1px solid var(--rule);
+    border-radius:14px;
+    padding:20px 18px;
+    text-align:center;
+    margin-top:10px;
+  }
+  .continuum__orn{color:var(--gold);font-size:18px;letter-spacing:.4em;margin-bottom:12px}
+  .continuum h2{
+    font-family:"Playfair Display",serif;
+    font-weight:700;
+    font-size:18px;
+    margin-bottom:14px;
+  }
+  .flow{
+    font-size:16px;
+    line-height:2;
+    margin-bottom:16px;
+  }
+  .flow b{font-weight:600}
+  .flow .g{color:#563586}
+  .flow .k{color:#9a6216}
+  .flow .n{color:#2c5433}
+  .flow .arrow{color:var(--gold);padding:0 4px}
+  .continuum__note{
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink-soft);
+    border-top:1px solid var(--rule);
+    padding-top:14px;
+  }
+  .continuum__note em{font-style:italic;color:var(--ink)}
+
+  /* fade-in */
+  @media (prefers-reduced-motion:no-preference){
+    .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.in{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast reveal">
+    <div class="mast__orn">❧ ✦ ❧</div>
+    <h1>Three Important <em>Pākas</em></h1>
+    <p class="mast__sub"><em>Pāka</em> relates to the encasement of an idea in language — the nature and texture of the language employed.</p>
+  </header>
+
+  <div class="eyebrow reveal"><span>Examples from Telugu / Sanskrit Literature</span></div>
+
+  <!-- 1. DRĀKṢĀ -->
+  <article class="card card--draksa reveal">
+    <div class="card__head">
+      <span class="card__num">1</span>
+      <h2 class="card__title">Drākṣā-pāka <span class="te">ద్రాక్షాపాకం</span></h2>
+      <p class="card__gloss">The grape</p>
+    </div>
+    <p class="card__def">Meaning is grasped almost as soon as the words are understood.</p>
+    <div class="fruit">
+      <span class="fruit__lbl">Why the grape</span>
+      <p>A grape is eaten whole — no peel to strip, no shell to crack, no seed to break past. The sweetness sits right at the surface, released the instant you bite. So too the sense: nothing stands between the reader and the meaning.</p>
+    </div>
+    <p class="card__eg"><span class="lbl">Example:</span> Vemana</p>
+    <blockquote class="verse te" lang="te">ఉప్పు కప్పురంబు నొక్క పోలిక నుండు<br>చూడ చూడ రుచుల జాడ వేరు<br>పురుషులందు పుణ్యపురుషులు వేరయా<br>విశ్వదాభిరామ వినుర వేమ!</blockquote>
+    <p class="card__trans">Salt and camphor may look alike, but taste immediately reveals the difference; likewise, outwardly similar people differ in character.</p>
+    <h3 class="card__why">Why this is Drākṣā-pāka</h3>
+    <ul>
+      <li>Colloquial vocabulary and simple syntax</li>
+      <li>Familiar objects and direct analogy</li>
+      <li>The point arrives immediately — the idea is seen through a transparent medium</li>
+    </ul>
+    <footer class="card__poet">
+      <span class="k">Representative poet</span>
+      <strong>Nannaya</strong>
+      <em>Mahābhāratamu</em>
+    </footer>
+  </article>
+
+  <!-- 2. KADALĪ -->
+  <article class="card card--kadali reveal">
+    <div class="card__head">
+      <span class="card__num">2</span>
+      <h2 class="card__title">Kadalī-pāka <span class="te">కదళీపాకం</span></h2>
+      <p class="card__gloss">The plantain / banana</p>
+    </div>
+    <p class="card__def">Meaning is accessible, but the language has a skin to peel away — through metaphor, suggestion, or poetic convention.</p>
+    <div class="fruit">
+      <span class="fruit__lbl">Why the plantain</span>
+      <p>A banana carries a single soft skin. Strip it off in one easy motion and the whole sweet fruit is yours — the barrier is real but effortless. So too the poem: remove the one layer of metaphor or convention, and the meaning is fully in hand.</p>
+    </div>
+    <p class="card__eg"><span class="lbl">Example:</span> Kālidāsa, <em>Raghuvaṃśa</em> 1.2</p>
+    <blockquote class="verse dev" lang="sa">क्व सूर्यप्रभवो वंशः क्व चाल्पविषया मतिः ।<br>तितीर्षुर्दुस्तरं मोहादुडुपेनास्मि सागरम् ॥</blockquote>
+    <p class="translit">kva sūryaprabhavo vaṃśaḥ kva cālpaviṣayā matiḥ /<br>titīrṣur dustaraṃ mohād uḍupenāsmi sāgaram //</p>
+    <p class="card__trans">Where is this dynasty descended from the Sun, and where my small capacity? In my folly I am like one wishing to cross an impassable ocean in a little boat.</p>
+    <h3 class="card__why">Why this is Kadalī-pāka</h3>
+    <ul>
+      <li>The literal scene is clear, but the meaning is metaphorical</li>
+      <li>Ocean = the vast Raghu dynasty; little boat = the poet's inadequate intellect; crossing = undertaking the poem</li>
+      <li>Peel the metaphor and the thought becomes clear</li>
+    </ul>
+    <footer class="card__poet">
+      <span class="k">Representative poet</span>
+      <strong>Tikkana</strong>
+      <em>Mahābhāratamu</em>
+    </footer>
+  </article>
+
+  <!-- 3. NĀRIKELA -->
+  <article class="card card--narikela reveal">
+    <div class="card__head">
+      <span class="card__num">3</span>
+      <h2 class="card__title">Nārikela-pāka <span class="te">నారికేళపాకం</span></h2>
+      <p class="card__gloss">The coconut</p>
+    </div>
+    <p class="card__def">The surface is hard. You must break the rind — through compounds, śleṣa, allusion, context — before the idea becomes available.</p>
+    <div class="fruit">
+      <span class="fruit__lbl">Why the coconut</span>
+      <p>A coconut guards its kernel behind husk and hard shell; you must break through before reaching the sweet flesh and water within. So too the verse: the meaning is real and rewarding, but sealed — it yields only to effort.</p>
+    </div>
+    <p class="card__eg"><span class="lbl">Example:</span> Piṅgaḷi Sūrana, <em>Rāghavapāṇḍavīyam</em></p>
+    <blockquote class="verse te" lang="te">ఒకే పద్యము రామాయణమును, మహాభారతమును — రెండు కథలను పోషించును (శ్లేష).</blockquote>
+    <p class="card__trans center">The same verse sustains narratives from both the <em>Rāmāyaṇa</em> and the <em>Mahābhārata</em>.</p>
+    <h3 class="card__why">Why this is Nārikela-pāka</h3>
+    <ul>
+      <li>Śleṣa (double meaning) and dense compounds</li>
+      <li>Multiple senses of words and layered allusions</li>
+      <li>Requires epic context and careful unpacking</li>
+      <li>The idea is enclosed by the verbal construction and must be broken open</li>
+    </ul>
+    <footer class="card__poet">
+      <span class="k">Representative poet</span>
+      <strong>Krishnadevaraya</strong>
+      <em>Āmuktamālyada (Viṣṇucittīyam)</em>
+    </footer>
+  </article>
+
+  <div class="eyebrow two reveal"><span>English Literary Analogues · Austen → Shakespeare → Donne</span></div>
+
+  <!-- Austen -->
+  <article class="card card--draksa reveal">
+    <div class="card__head">
+      <span class="card__num">1</span>
+      <h2 class="card__title">Drākṣā-pāka — Jane Austen</h2>
+      <p class="card__gloss">The thought yields itself readily.</p>
+    </div>
+    <div class="quoteblock">
+      <p>“There is nothing like staying at home for real comfort.”</p>
+      <cite>— <em>Emma</em></cite>
+    </div>
+    <p class="card__trans">Elegant, ironic, and literary — yet once the sentence is understood, the idea presents itself immediately.</p>
+    <h3 class="card__why">Why this is Drākṣā-pāka</h3>
+    <ul>
+      <li>Syntax is clear and controlled</li>
+      <li>Irony does not obscure the core thought</li>
+      <li>The meaning is seen through a transparent medium</li>
+    </ul>
+  </article>
+
+  <!-- Shakespeare -->
+  <article class="card card--kadali reveal">
+    <div class="card__head">
+      <span class="card__num">2</span>
+      <h2 class="card__title">Kadalī-pāka — William Shakespeare</h2>
+      <p class="card__gloss">The thought emerges after unfolding the image or context.</p>
+    </div>
+    <div class="quoteblock">
+      <p>“All the world’s a stage,<br>And all the men and women merely players.”</p>
+      <cite>— <em>As You Like It</em></cite>
+    </div>
+    <p class="card__trans">The proposition is not stated directly. The metaphor must be unfolded to reach the full thought.</p>
+    <h3 class="card__why">Why this is Kadalī-pāka</h3>
+    <ul>
+      <li>Vivid image and metaphor</li>
+      <li>Requires unpacking and context to grasp the full import</li>
+      <li>The meaning is not identical with the surface</li>
+    </ul>
+  </article>
+
+  <!-- Donne -->
+  <article class="card card--narikela reveal">
+    <div class="card__head">
+      <span class="card__num">3</span>
+      <h2 class="card__title">Nārikela-pāka — John Donne</h2>
+      <p class="card__gloss">The thought is enclosed in the verbal construction.</p>
+    </div>
+    <div class="quoteblock">
+      <p>“No man is an island entire of itself; every man is a piece of the continent, a part of the main.”</p>
+      <cite>— <em>Devotions upon Emergent Occasions</em></cite>
+    </div>
+    <p class="card__trans">Dense metaphysical conceit, compressed argument, and layered implications must be worked through.</p>
+    <h3 class="card__why">Why this is Nārikela-pāka</h3>
+    <ul>
+      <li>Conceit and abstraction tightly packed into the expression</li>
+      <li>Several layers of meaning and implication</li>
+      <li>The idea becomes available only after deep engagement</li>
+    </ul>
+  </article>
+
+  <!-- Continuum -->
+  <section class="continuum reveal">
+    <div class="continuum__orn">✦</div>
+    <h2>The Pāka Continuum</h2>
+    <p class="flow">
+      <b class="g">Drākṣā</b> <span style="color:var(--ink-soft)">(immediate)</span>
+      <span class="arrow">→</span>
+      <b class="k">Kadalī</b> <span style="color:var(--ink-soft)">(unfolding)</span>
+      <span class="arrow">→</span>
+      <b class="n">Nārikela</b> <span style="color:var(--ink-soft)">(breaking open)</span>
+    </p>
+    <p class="continuum__note"><em>Pāka</em> does not mean “easy,” “metaphorical,” or “obscure.” It describes how readily the meaning yields itself through the language — all three can be sublime; they differ in how the idea is encased in expression.</p>
+  </section>
+
+</div>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
+  },{threshold:0.08, rootMargin:"0px 0px -8% 0px"});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{ el.style.transitionDelay=(Math.min(i,6)*40)+'ms'; io.observe(el); });
+</script>
+</body>
+</html>

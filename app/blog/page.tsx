@@ -15,6 +15,22 @@ export default function BlogPage() {
         </p>
       </header>
 
+      <a
+        href="/pakas"
+        className="block mb-20 border border-neutral-200 dark:border-neutral-800 rounded-xl p-8 hover:border-accent transition-colors group"
+      >
+        <div className="font-serif text-xs text-accent mb-3 uppercase tracking-widest">
+          Interactive · Telugu / Sanskrit Poetics
+        </div>
+        <h2 className="font-display text-3xl font-bold mb-3 text-heading group-hover:text-accent transition-colors leading-tight">
+          Three Important Pākas
+        </h2>
+        <p className="font-serif text-neutral-800 dark:text-neutral-300 leading-relaxed text-lg">
+          Drākṣā, Kadalī, and Nārikela — the grape, the plantain, and the coconut — as a way of
+          describing how readily a poem&rsquo;s meaning yields itself through language.
+        </p>
+      </a>
+
       {posts.length === 0 ? (
         <div className="text-center py-12">
           <p className="font-serif text-neutral-600 dark:text-neutral-500 text-lg">No posts yet. Check back soon.</p>
