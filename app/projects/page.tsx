@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { getAllProjects, getAllCategories } from '@/lib/projects';
 
 export default function ProjectsPage() {
@@ -70,14 +71,26 @@ export default function ProjectsPage() {
             {/* Links */}
             <div className="flex gap-6">
               {project.liveUrl && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-serif text-heading underline decoration-neutral-400 dark:decoration-neutral-600 hover:decoration-neutral-900 dark:hover:decoration-neutral-300 transition-colors decoration-2 underline-offset-2"
-                >
-                  Live Demo
-                </a>
+                // A relative liveUrl points at a page on this site (the Indic
+                // keyboards landing page), so it routes client-side and stays
+                // in the tab. External demos still open in a new tab.
+                project.liveUrl.startsWith('/') ? (
+                  <Link
+                    href={project.liveUrl}
+                    className="font-serif text-heading underline decoration-neutral-400 dark:decoration-neutral-600 hover:decoration-neutral-900 dark:hover:decoration-neutral-300 transition-colors decoration-2 underline-offset-2"
+                  >
+                    Explore
+                  </Link>
+                ) : (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-serif text-heading underline decoration-neutral-400 dark:decoration-neutral-600 hover:decoration-neutral-900 dark:hover:decoration-neutral-300 transition-colors decoration-2 underline-offset-2"
+                  >
+                    Live Demo
+                  </a>
+                )
               )}
               {project.githubUrl && (
                 <a

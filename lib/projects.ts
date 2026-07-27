@@ -126,11 +126,13 @@ export const projects: Project[] = [
     id: 'indic-keyboards',
     title: 'Indic Script Keyboards',
     description: 'Virtual keyboards for Telugu, Hindi, Tamil, and Kannada',
-    longDescription: 'A family of on-screen keyboards for typing in Indic scripts — Telugu, Hindi, Tamil, and Kannada — sharing a common layout philosophy. The Telugu keyboard is the most developed, with e2e tests and a dictionary-backed input mode. Live: telugu-keyboard, hindi-keyboard, tamil-keyboard, kannada-keyboard.',
-    technologies: ['JavaScript', 'Vite', 'Playwright', 'Indic Unicode'],
-    githubUrl: 'https://github.com/kesava/kesava.github.io/tree/main/telugu-keyboard',
-    liveUrl: 'https://kesava.github.io/telugu-keyboard',
-    featured: false,
+    longDescription: 'A family of four on-screen keyboards for typing Indic scripts in the browser. Each tracks the akshara you are part-way through and reshapes the key grid accordingly — vowel signs after a bare consonant, real conjuncts after a virama — with dictionary-backed word prediction, ITRANS romanised input, and English reverse lookup. All four install as offline PWAs. Telugu and Hindi ship full corpora (54k and 216k words); Tamil and Kannada are still on seed word lists.',
+    technologies: ['React', 'TypeScript', 'Vite', 'PWA', 'Indic Unicode'],
+    // Four standalone repos, not subdirectories of this site — the landing
+    // page links out to each one.
+    githubUrl: 'https://github.com/kesava/telugu-keyboard',
+    liveUrl: '/keyboards',
+    featured: true,
     category: 'Indic Language Tools',
   },
   {
